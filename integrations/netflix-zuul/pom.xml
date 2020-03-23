@@ -16,5 +16,12 @@
     <description>🏗 Mixmicro+ Ingress Netflix Zuul Module</description>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>

@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import springfox.documentation.service.Contact;
 
 import static com.yunlsp.framework.ingress.IngressProperties.INGRESS_PROPERTIES_PREFIX;
+import static com.yunlsp.framework.ingress.plugin.swagger.SpringfoxSwaggerProperties.INGRESS_SWAGGER_PROPERTIES_PREFIX;
 
 /**
  * {@link SpringfoxSwaggerProperties}
@@ -18,8 +19,10 @@ import static com.yunlsp.framework.ingress.IngressProperties.INGRESS_PROPERTIES_
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ConfigurationProperties(prefix = INGRESS_PROPERTIES_PREFIX, ignoreInvalidFields = true)
+@ConfigurationProperties(prefix = INGRESS_SWAGGER_PROPERTIES_PREFIX, ignoreInvalidFields = true)
 public class SpringfoxSwaggerProperties {
+
+  public static final String INGRESS_SWAGGER_PROPERTIES_PREFIX = INGRESS_PROPERTIES_PREFIX + ".swagger";
 
   private boolean enabled = false;
 
