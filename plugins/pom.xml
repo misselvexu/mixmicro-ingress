@@ -9,15 +9,18 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>mixmicro-ingress-integration-all</artifactId>
+    <artifactId>mixmicro-ingress-plugin-all</artifactId>
     <version>1.0.0.BUILD-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>YunLSP Mix Micro-service Ingress Integrations Module :: ${project.version}</name>
-    <description>🏗 YunLSP Mix Micro-service Ingress Integrations Module</description>
+    <name>YunLSP Mix Micro-service Ingress Plugins Module :: ${project.version}</name>
+    <description>🏗 YunLSP Mix Micro-service Ingress Plugins Module</description>
 
     <modules>
-        <module>netflix-zuul</module>
+
+        <module>alibaba-sentinel</module>
+        <module>springfox-swagger</module>
+
     </modules>
 
 
@@ -28,7 +31,13 @@
 
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
-                <artifactId>mixmicro-ingress-integration-netflix-zuul</artifactId>
+                <artifactId>mixmicro-ingress-plugin-alibaba-sentinel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.yunlsp.framework</groupId>
+                <artifactId>mixmicro-ingress-plugin-springfox-swagger</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
