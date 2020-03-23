@@ -13,8 +13,8 @@
     <version>1.0.0.BUILD-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>YunLSP Mix Micro-service Ingress Integrations Module :: ${project.version}</name>
-    <description>🏗 YunLSP Mix Micro-service Ingress Integrations Module</description>
+    <name>Mixmicro+ Ingress Integrations Module :: ${project.version}</name>
+    <description>🏗 Mixmicro+ Ingress Integrations Module</description>
 
     <modules>
         <module>netflix-zuul</module>

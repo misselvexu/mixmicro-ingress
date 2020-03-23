@@ -12,8 +12,8 @@
     <artifactId>mixmicro-ingress-integration-netflix-zuul</artifactId>
     <version>1.0.0.BUILD-SNAPSHOT</version>
 
-    <name>YunLSP Mix Micro-service Ingress Integrate Netflix Zuul Module :: ${project.version}</name>
-    <description>🏗 YunLSP Mix Micro-service Ingress Netflix Zuul Module</description>
+    <name>Mixmicro+ Ingress Integrate Netflix Zuul Module :: ${project.version}</name>
+    <description>🏗 Mixmicro+ Ingress Netflix Zuul Module</description>
 
 
 

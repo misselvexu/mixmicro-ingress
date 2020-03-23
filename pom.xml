@@ -7,8 +7,8 @@
     <version>1.0.0.BUILD-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>YunLSP Mix Micro-service Ingress :: ${project.version}</name>
-    <description>🏗 YunLSP Mix Micro-service Ingress</description>
+    <name>Mixmicro+ Ingress :: ${project.version}</name>
+    <description>🏗 Mixmicro+ Ingress</description>
     <inceptionYear>2020</inceptionYear>
     <url>http://git.hgj.net/elve.xu/Mixmicro-Ingress</url>
 

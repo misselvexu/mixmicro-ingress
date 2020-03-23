@@ -12,8 +12,8 @@
     <artifactId>mixmicro-ingress-dashboard</artifactId>
     <version>1.0.0.BUILD-SNAPSHOT</version>
 
-    <name>YunLSP Mix Micro-service Ingress Dashboard Web Module :: ${project.version}</name>
-    <description>🏗 YunLSP Mix Micro-service Ingress Dashboard Web Module</description>
+    <name>Mixmicro+ Ingress Dashboard Web Module :: ${project.version}</name>
+    <description>🏗 Mixmicro+ Ingress Dashboard Web Module</description>
 
     <dependencies>
 

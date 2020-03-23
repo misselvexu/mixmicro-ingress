@@ -12,8 +12,8 @@
     <artifactId>mixmicro-ingress-plugin-springfox-swagger</artifactId>
     <version>1.0.0.BUILD-SNAPSHOT</version>
 
-    <name>YunLSP Mix Micro-service Ingress Swagger Plugin Module :: ${project.version}</name>
-    <description>🏗 YunLSP Mix Micro-service Ingress Swagger Plugin Module</description>
+    <name>Mixmicro+ Ingress Swagger Plugin Module :: ${project.version}</name>
+    <description>🏗 Mixmicro+ Ingress Swagger Plugin Module</description>
 
 
 </project>
