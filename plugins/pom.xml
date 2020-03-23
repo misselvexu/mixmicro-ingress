@@ -20,6 +20,7 @@
 
         <module>alibaba-sentinel-zuul</module>
         <module>springfox-swagger</module>
+        <module>whale-authenticate</module>
 
     </modules>
 
@@ -38,6 +39,12 @@
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
                 <artifactId>mixmicro-ingress-plugin-springfox-swagger</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.yunlsp.framework</groupId>
+                <artifactId>mixmicro-ingress-plugin-whale-authenticate</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
