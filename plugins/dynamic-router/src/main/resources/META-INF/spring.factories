@@ -1,2 +1,2 @@
 org.springframework.context.ApplicationListener=\
-  com.yunlsp.framework.ingress.router.DynamicRouterListener
+  com.yunlsp.framework.ingress.plugin.router.DynamicRouterListener

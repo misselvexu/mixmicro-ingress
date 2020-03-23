@@ -1,4 +1,4 @@
-package com.yunlsp.framework.ingress.router;
+package com.yunlsp.framework.ingress.plugin.router;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanInitializationException;
