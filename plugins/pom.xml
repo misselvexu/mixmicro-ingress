@@ -18,6 +18,7 @@
 
     <modules>
 
+        <module>alibaba-discovery-nacos</module>
         <module>alibaba-sentinel-zuul</module>
         <module>springfox-swagger</module>
         <module>whale-authenticate</module>
@@ -45,6 +46,12 @@
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
                 <artifactId>mixmicro-ingress-plugin-whale-authenticate</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.yunlsp.framework</groupId>
+                <artifactId>mixmicro-ingress-plugin-discovery-nacos</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
