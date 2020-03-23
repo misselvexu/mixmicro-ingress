@@ -9,23 +9,28 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>mixmicro-ingress-plugin-alibaba-discovery-nacos</artifactId>
+    <artifactId>mixmicro-ingress-plugin-dynamic-router</artifactId>
     <version>1.0.0.BUILD-SNAPSHOT</version>
 
-    <name>Mixmicro+ Ingress Alibaba Nacos Discovery Plugin Module :: ${project.version}</name>
-    <description>🏗 Mixmicro+ Ingress Alibaba Nacos Discovery Plugin Module</description>
+    <name>Mixmicro+ Ingress Dynamic Router Plugin Module :: ${project.version}</name>
+    <description>🏗 Mixmicro+ Ingress Dynamic Router Plugin Module</description>
 
 
     <dependencies>
 
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-context</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-netflix-zuul</artifactId>
         </dependency>
 
     </dependencies>

@@ -74,7 +74,7 @@
     </developers>
 
     <modules>
-
+        <module>api</module>
         <module>integrations</module>
         <module>plugins</module>
         <module>bootstrap</module>
@@ -111,6 +111,12 @@
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
                 <artifactId>mixmicro-ingress-bootstrap</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.yunlsp.framework</groupId>
+                <artifactId>mixmicro-ingress-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
