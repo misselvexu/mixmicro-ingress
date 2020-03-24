@@ -32,8 +32,8 @@
         <spring.framework.version>5.2.2.RELEASE</spring.framework.version>
 
         <jaeger.opentracing.version>2.0.3</jaeger.opentracing.version>
-        <swagger.version>1.5.14</swagger.version>
-        <springfox.swagger.version>2.8.0</springfox.swagger.version>
+        <swagger.version>1.5.20</swagger.version>
+        <springfox.swagger.version>2.9.2</springfox.swagger.version>
         <mybatis.plus.version>3.1.0</mybatis.plus.version>
 
         <!-- Plugins Version -->
@@ -302,12 +302,6 @@
             </dependency>
 
             <!-- Swagger Support -->
-            <dependency>
-                <groupId>xyz.vopen.tiffany</groupId>
-                <artifactId>spring-boot-starter-swagger</artifactId>
-                <version>0.8.1-RELEASE</version>
-            </dependency>
-
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>

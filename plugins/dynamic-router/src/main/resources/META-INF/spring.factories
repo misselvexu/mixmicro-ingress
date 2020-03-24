@@ -1,2 +1,2 @@
-org.springframework.context.ApplicationListener=\
-  com.yunlsp.framework.ingress.plugin.router.DynamicRouterListener
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.yunlsp.framework.ingress.plugin.router.DynamicRouterAutoConfiguration

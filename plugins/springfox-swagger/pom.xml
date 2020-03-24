@@ -24,9 +24,18 @@
         </dependency>
 
         <dependency>
-            <groupId>xyz.vopen.tiffany</groupId>
-            <artifactId>spring-boot-starter-swagger</artifactId>
-            <scope>provided</scope>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-bean-validators</artifactId>
         </dependency>
 
         <dependency>

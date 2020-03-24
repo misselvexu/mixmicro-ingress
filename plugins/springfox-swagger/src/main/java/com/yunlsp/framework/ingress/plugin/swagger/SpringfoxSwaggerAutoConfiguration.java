@@ -2,6 +2,7 @@ package com.yunlsp.framework.ingress.plugin.swagger;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -39,5 +40,11 @@ public class SpringfoxSwaggerAutoConfiguration {
                 .version(properties.getVersion())
                 .contact(properties.getContact())
                 .build());
+  }
+
+  @Bean
+  public SpringfoxSwaggerResourceChangeListener springfoxSwaggerResourceChangeListener(
+      RouteLocator routeLocator) {
+    return new SpringfoxSwaggerResourceChangeListener(routeLocator);
   }
 }
