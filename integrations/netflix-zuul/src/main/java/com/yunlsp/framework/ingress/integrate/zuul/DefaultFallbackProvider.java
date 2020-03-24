@@ -1,5 +1,6 @@
 package com.yunlsp.framework.ingress.integrate.zuul;
 
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.netflix.hystrix.exception.HystrixTimeoutException;
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
 import org.springframework.http.HttpHeaders;
@@ -43,6 +44,8 @@ public class DefaultFallbackProvider implements FallbackProvider {
   public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
     if (cause instanceof HystrixTimeoutException) {
       return response(HttpStatus.GATEWAY_TIMEOUT, route);
+    } else if (cause instanceof BlockException){
+      return response(HttpStatus.TOO_MANY_REQUESTS, route);
     } else {
       return response(HttpStatus.INTERNAL_SERVER_ERROR, route);
     }
@@ -75,8 +78,7 @@ public class DefaultFallbackProvider implements FallbackProvider {
       @Override
       @NonNull
       public InputStream getBody() {
-        ResponseEntity<Void> entity =
-            ResponseEntity.fail(Void.class, SERVICE_UNAVAILABLE.value(), "Service " + route + " is unavailable");
+        ResponseEntity<Void> entity = ResponseEntity.fail(Void.class, SERVICE_UNAVAILABLE.value(), "Service " + route + " is unavailable");
         return new ByteArrayInputStream(SerializableBean.bytes(entity));
       }
 
