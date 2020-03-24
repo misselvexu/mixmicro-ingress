@@ -77,6 +77,25 @@
             <artifactId>mixmicro-ingress-plugin-dynamic-router</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.yunlsp.framework</groupId>
+            <artifactId>mixmicro-ingress-plugin-openfeign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yunlsp.framework</groupId>
+            <artifactId>mixmicro-ingress-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yunlsp.framework</groupId>
+            <artifactId>mixmicro-ingress-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yunlsp.framework.components</groupId>
+            <artifactId>mixmicro-components-starter-cors</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

@@ -34,4 +34,9 @@ public class ZuulPluginAutoConfiguration {
   public ZuulPropertiesBeanPostProcessor zuulPropertiesBeanPostProcessor() {
     return new ZuulPropertiesBeanPostProcessor();
   }
+
+  @Bean
+  public DefaultFallbackProvider defaultFallbackProvider() {
+    return new DefaultFallbackProvider();
+  }
 }

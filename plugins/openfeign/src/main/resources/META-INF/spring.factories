@@ -1,0 +1,7 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.yunlsp.framework.ingress.plugin.openfeign.autoconfigure.OpenFeignAutoConfiguration
+
+
+# EnvironmentPostProcessor
+org.springframework.boot.env.EnvironmentPostProcessor=\
+  com.yunlsp.framework.ingress.plugin.openfeign.DefaultOpenfeignEnvironmentPostProcessor

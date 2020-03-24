@@ -19,8 +19,18 @@
     <dependencies>
 
         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.yunlsp.framework</groupId>
             <artifactId>mixmicro-ingress-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yunlsp.framework</groupId>
+            <artifactId>mixmicro-ingress-core</artifactId>
         </dependency>
 
         <dependency>
@@ -50,7 +60,12 @@
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-netflix-zuul</artifactId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yunlsp.framework</groupId>
+            <artifactId>mixmicro-ingress-integration-netflix-zuul</artifactId>
         </dependency>
 
         <dependency>

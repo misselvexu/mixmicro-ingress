@@ -23,6 +23,7 @@
         <module>springfox-swagger</module>
         <module>whale-authenticate</module>
         <module>dynamic-router</module>
+        <module>openfeign</module>
 
     </modules>
 
@@ -58,10 +59,23 @@
 
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
+                <artifactId>mixmicro-ingress-plugin-openfeign</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.yunlsp.framework</groupId>
                 <artifactId>mixmicro-ingress-plugin-dynamic-router</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.yunlsp.framework</groupId>
+                <artifactId>mixmicro-ingress-integration-all</artifactId>
+                <version>${project.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>

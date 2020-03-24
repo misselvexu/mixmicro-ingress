@@ -32,8 +32,8 @@
         <spring.framework.version>5.2.2.RELEASE</spring.framework.version>
 
         <jaeger.opentracing.version>2.0.3</jaeger.opentracing.version>
-        <swagger.version>1.5.20</swagger.version>
-        <springfox.swagger.version>2.9.2</springfox.swagger.version>
+        <swagger.version>1.5.18</swagger.version>
+        <springfox.swagger.version>2.9.0</springfox.swagger.version>
         <mybatis.plus.version>3.1.0</mybatis.plus.version>
 
         <!-- Plugins Version -->
@@ -75,6 +75,7 @@
 
     <modules>
         <module>api</module>
+        <module>core</module>
         <module>integrations</module>
         <module>plugins</module>
         <module>bootstrap</module>
@@ -117,6 +118,12 @@
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
                 <artifactId>mixmicro-ingress-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.yunlsp.framework</groupId>
+                <artifactId>mixmicro-ingress-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

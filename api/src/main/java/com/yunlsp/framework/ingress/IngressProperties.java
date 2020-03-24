@@ -1,8 +1,6 @@
 package com.yunlsp.framework.ingress;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -15,14 +13,11 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class IngressProperties implements Serializable {
 
   public static final String INGRESS_PROPERTIES_PREFIX = "mixmicro.ingress";
 
   private boolean enabled = true;
 
-  
-
+  private boolean ssl;
 }

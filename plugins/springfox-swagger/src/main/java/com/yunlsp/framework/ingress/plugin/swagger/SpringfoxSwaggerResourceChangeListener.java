@@ -3,11 +3,11 @@ package com.yunlsp.framework.ingress.plugin.swagger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.google.common.collect.Lists;
+import com.yunlsp.framework.ingress.integrate.zuul.ZuulPluginProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.cloud.netflix.zuul.RoutesRefreshedEvent;
-import org.springframework.cloud.netflix.zuul.filters.Route;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
@@ -19,6 +19,8 @@ import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * {@link SpringfoxSwaggerResourceChangeListener}
@@ -31,27 +33,24 @@ public class SpringfoxSwaggerResourceChangeListener
 
   private static final Logger log = LoggerFactory.getLogger(SpringfoxSwaggerResourceChangeListener.class);
 
-  private static final String SERVICE_INSTANCE_SWAGGER_ENABLED_KEY = "zuul.routes.%s.swagger.enabled";
-
-  private static final String SERVICE_INSTANCE_API_VERSION_KEY = "zuul.routes.%s.version";
-
   private static final String SERVICE_INSTANCE_SWAGGER_DOCS_URI = "/%s/v2/api-docs";
 
   private static volatile List<SwaggerResource> resources = Lists.newArrayList();
 
   private Environment environment;
 
-  private final RouteLocator routeLocator;
+  private final ZuulPluginProperties.ZuulRouterExtendedProperties zuulRouterExtendedProperties;
 
-  private static final ObjectMapper mapper = new JsonMapper();
+  private static ObjectMapper mapper = new JsonMapper();
 
   /**
    * Constructor with instance of {@link RouteLocator}
    *
-   * @param routeLocator zuul route locator
+   * @param zuulRouterExtendedProperties zuul route locator
    */
-  public SpringfoxSwaggerResourceChangeListener(RouteLocator routeLocator) {
-    this.routeLocator = routeLocator;
+  public SpringfoxSwaggerResourceChangeListener(
+      ZuulPluginProperties.ZuulRouterExtendedProperties zuulRouterExtendedProperties) {
+    this.zuulRouterExtendedProperties = zuulRouterExtendedProperties;
   }
 
   /**
@@ -92,24 +91,24 @@ public class SpringfoxSwaggerResourceChangeListener
       log.debug("[==SWAGGER==] before resource refresh, resources: {} " , mapper.writeValueAsString(resources));
     }
     resources.clear();
-    List<Route> routes = routeLocator.getRoutes();
-    routes.parallelStream().forEach(this::process);
+    Map<String, ZuulPluginProperties.ZuulRouterExtendedProperties.ZuulExtendedRoute> routes = zuulRouterExtendedProperties.getRoutes();
+
+    routes.forEach(this::process);
     //
     if(log.isDebugEnabled()) {
       log.debug("[==SWAGGER==] after resource refreshed , resources: {} " , mapper.writeValueAsString(resources));
     }
   }
 
-  private void process(Route route) {
-    String enabledKey = String.format(SERVICE_INSTANCE_SWAGGER_ENABLED_KEY, route.getId());
-    if (!getProperty(enabledKey, Boolean.class, Boolean.FALSE)) {
+  private void process(String key, ZuulPluginProperties.ZuulRouterExtendedProperties.ZuulExtendedRoute route) {
+
+    if(!route.getSwagger().isEnabled()) {
       return;
     }
 
     String location = String.format(SERVICE_INSTANCE_SWAGGER_DOCS_URI, route.getId());
-    String versionKey = String.format(SERVICE_INSTANCE_API_VERSION_KEY, route.getId());
 
-    SwaggerResource resource = build(route.getLocation(), location, getProperty(versionKey, String.class, "NaN"));
+    SwaggerResource resource = build(route.getLocation(), location, Optional.ofNullable(route.getVersion()).orElse("NaN"));
     resources.add(resource);
   }
 
