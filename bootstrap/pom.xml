@@ -17,6 +17,18 @@
 
     <dependencies>
 
+        <!-- Ingress Common Libs -->
+        <dependency>
+            <groupId>com.yunlsp.framework</groupId>
+            <artifactId>mixmicro-ingress-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yunlsp.framework</groupId>
+            <artifactId>mixmicro-ingress-core</artifactId>
+        </dependency>
+
+        <!-- Cloud Gateway Lib -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
@@ -52,6 +64,8 @@
             <artifactId>mixmicro-ingress-integration-netflix-zuul</artifactId>
         </dependency>
 
+
+        <!-- Ingress Plugins -->
         <dependency>
             <groupId>com.yunlsp.framework</groupId>
             <artifactId>mixmicro-ingress-plugin-alibaba-sentinel-zuul</artifactId>
@@ -82,16 +96,7 @@
             <artifactId>mixmicro-ingress-plugin-openfeign</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.yunlsp.framework</groupId>
-            <artifactId>mixmicro-ingress-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.yunlsp.framework</groupId>
-            <artifactId>mixmicro-ingress-core</artifactId>
-        </dependency>
-
+        <!-- Extensions Lib -->
         <dependency>
             <groupId>com.yunlsp.framework.components</groupId>
             <artifactId>mixmicro-components-starter-cors</artifactId>
