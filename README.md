@@ -62,7 +62,7 @@ If you want to build with the regular `mvn` command, you will need [Maven v3.5.0
 
 #### How to Use
 
-> editing
+Ingress usage see [Ingress Reference](DOC.md)
 
 ### License
  

@@ -98,9 +98,7 @@ public class SpringfoxSwaggerPathRewritingFilter extends SendResponseFilter {
           LinkedHashMap<String, Object> temp = (LinkedHashMap<String, Object>) pathsObject;
           LinkedHashMap<String, Object> targetPathMap = Maps.newLinkedHashMap();
           temp.forEach(
-              (path, value) -> {
-                targetPathMap.put(basePath.replace("//", "/") + path, value);
-              });
+              (path, value) -> targetPathMap.put(basePath.replace("//", "/") + path, value));
           map.put("paths", targetPathMap);
         }
       }
