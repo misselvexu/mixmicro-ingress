@@ -30,5 +30,8 @@ fi
 # change version in all pom files
 find .. -name 'pom.xml' -type f -exec perl -pi -e 's#<version>'"$OLD"'</version>#<version>'"$NEW"'</version>#' {} \;
 
+# change version in all Dockerfile
+find .. -name 'Dockerfile' -type f -exec perl -pi -e 's#ENV VERSION '"$OLD"'#ENV VERSION '"$NEW"'#' {} \;
+
 # change version of the quickstart property
 find .. -name 'pom.xml' -type f -exec perl -pi -e 's#<ingress.version>'"$OLD"'</ingress.version>#<ingress.version>'"$NEW"'</ingress.version>#' {} \;
