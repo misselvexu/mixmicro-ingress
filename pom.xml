@@ -41,6 +41,7 @@
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
         <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+        <maven-ant-plugin.version>1.8</maven-ant-plugin.version>
         <maven-war-plugin.version>3.0.0</maven-war-plugin.version>
         <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
@@ -457,6 +458,39 @@
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${maven-ant-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <phase>process-resources</phase>
+                            <configuration>
+                                <target>
+                                    <copy file="${project.build.outputDirectory}/version.txt" toFile="${project.build.outputDirectory}/../version.txt" overwrite="true"/>
+                                </target>
+                            </configuration>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>templating-maven-plugin</artifactId>
+                    <version>1.0.0</version>
+                    <executions>
+                        <execution>
+                            <id>filtering-java-templates</id>
+                            <goals>
+                                <goal>filter-sources</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>${maven-war-plugin.version}</version>
                 </plugin>
@@ -580,7 +614,7 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!--
+
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
@@ -599,7 +633,6 @@
                     <failOnNoGitDirectory>false</failOnNoGitDirectory>
                 </configuration>
             </plugin>
-            -->
         </plugins>
 
         <resources>
