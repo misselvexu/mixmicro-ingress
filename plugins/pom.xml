@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.yunlsp.framework</groupId>
         <artifactId>mixmicro-ingress-all</artifactId>
-        <version>1.0.0.BUILD-SNAPSHOT</version>
+        <version>1.0.0.RC1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>mixmicro-ingress-plugin-all</artifactId>
-    <version>1.0.0.BUILD-SNAPSHOT</version>
+    <version>1.0.0.RC1</version>
     <packaging>pom</packaging>
 
     <name>Mixmicro+ Ingress Plugins Module :: ${project.version}</name>

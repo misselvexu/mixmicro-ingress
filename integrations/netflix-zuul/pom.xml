@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.yunlsp.framework</groupId>
         <artifactId>mixmicro-ingress-integration-all</artifactId>
-        <version>1.0.0.BUILD-SNAPSHOT</version>
+        <version>1.0.0.RC1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>mixmicro-ingress-integration-netflix-zuul</artifactId>
-    <version>1.0.0.BUILD-SNAPSHOT</version>
+    <version>1.0.0.RC1</version>
 
     <name>Mixmicro+ Ingress Integrate Netflix Zuul Module :: ${project.version}</name>
     <description>🏗 Mixmicro+ Ingress Netflix Zuul Module</description>

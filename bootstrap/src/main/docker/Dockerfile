@@ -2,7 +2,7 @@
 # Build with:
 # docker build -t mixmicro-ingress-bootstrap .
 # Run with:
-# docker run -p 9887:9887 --rm -e SW_AGENT_COLLECTOR_BACKEND_SERVICES="10.10.10.72:11800" -v /tmp/logs:/tmp/logs -v /tmp/logs/mixmicro-ingress-bootstrap:/mixmicro-ingress-bootstrap/logs --name mixmicro-ingress-bootstrap harbor.hgj.net/library/mixmicro-ingress-bootstrap:1.0.0.RC1
+# docker run -p 7777:7777 --rm -e SW_AGENT_COLLECTOR_BACKEND_SERVICES="10.10.10.72:11800" -e SERVER_ENV="dev" -v /tmp/logs:/tmp/logs -v /tmp/logs/mixmicro-ingress-bootstrap:/mixmicro-ingress-bootstrap/logs --name mixmicro-ingress-bootstrap mixmicro-ingress-bootstrap:1.0.0.RC1
 
 FROM harbor.hgj.net/library/yunlsp-openjdk8:latest
 MAINTAINER Elve.Xu <iskp.me@gmail.com>
@@ -21,6 +21,6 @@ ADD mixmicro-ingress-bootstrap-${VERSION}.zip /mixmicro-ingress-bootstrap/mixmic
 RUN unzip /mixmicro-ingress-bootstrap/mixmicro-ingress-bootstrap-${VERSION}.zip -d /mixmicro-ingress-bootstrap \
     && rm -rf /mixmicro-ingress-bootstrap/mixmicro-ingress-bootstrap-${VERSION}.zip
 
-EXPOSE 9887
+EXPOSE 7777
 
 ENTRYPOINT ["/mixmicro-ingress-bootstrap/bin/startup.sh"]
