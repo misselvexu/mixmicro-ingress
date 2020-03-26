@@ -464,7 +464,7 @@
                         <execution>
                             <phase>process-resources</phase>
                             <configuration>
-                                <target>
+                                <target name="version-target">
                                     <copy file="${project.build.outputDirectory}/version.txt" toFile="${project.build.outputDirectory}/../version.txt" overwrite="true"/>
                                 </target>
                             </configuration>
