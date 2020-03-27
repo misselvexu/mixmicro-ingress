@@ -5,6 +5,7 @@
 环境 | 服务发现地址 | 服务发现(`Namespace`) | 网关地址 |备注
 :----:|:----:|:----:|:----:|-----|
 dev | [http://dev-middle.hgj.net:8848](http://dev-middle.hgj.net:8848) | `03a1c325-7c9b-41bf-b4f6-404a0cf22d5a` | http://dev-ingress.hgj.net | - |
+beta | [http://dev-middle.hgj.net:8848](http://dev-middle.hgj.net:8848) | `5c6451a6-181c-4838-9db0-f7f11bff47c7` | http://beta-ingress.hgj.net | - |
 
 
 ### 新增网关配置
@@ -52,3 +53,19 @@ mixmicro.ingress.zuul.ext.routes.ws.version=1.0.0
 
 **第四步:** 点击完成`发布`即可
 
+
+### 限流策略配置
+
+选择编辑 `ingress-services-flow.json`
+
+配置示例
+```json
+
+[   
+  {
+    "resource": "ws", // 资源名称标识
+    "count": 1000     // MaxTPS数量
+  }
+]
+
+```

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SERVICE_NAME=mixmicro-ingress-bootstrap
-SERVICE_VERSION=1.0.0.RC1
+SERVICE_VERSION=1.0.0.RC2
 
 if [[ ! ${SERVICE_INSTANCE_NAME} ]];then
     SERVICE_NAME=${SERVICE_INSTANCE_NAME}
