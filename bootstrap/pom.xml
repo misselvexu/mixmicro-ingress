@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.yunlsp.framework</groupId>
         <artifactId>mixmicro-ingress-all</artifactId>
-        <version>1.0.0.RC2</version>
+        <version>1.0.0.RC3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>mixmicro-ingress-bootstrap</artifactId>
-    <version>1.0.0.RC2</version>
+    <version>1.0.0.RC3</version>
 
     <name>Mixmicro+ Ingress Bootstrap Web Module :: ${project.version}</name>
     <description>🏗 Mixmicro+ Ingress Bootstrap Web Module</description>
