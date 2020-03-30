@@ -64,6 +64,26 @@ If you want to build with the regular `mvn` command, you will need [Maven v3.5.0
 
 Ingress usage see [Ingress Reference](DOC.md)
 
+#### Version Plugin for `CI/CD`
+
+ *First* : Add version plugin `pom.xml` for bootstrap server
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+```
+
+*Second* : create `version.txt` file under `src/main/resources` directory
+
+edit `version.txt` with content `${project.version}`.
+
+
 ### License
  
 ```
