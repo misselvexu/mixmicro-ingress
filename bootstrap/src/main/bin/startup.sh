@@ -106,6 +106,8 @@ if [[ ! -d "${BASE_DIR}/logs" ]]; then
   mkdir ${BASE_DIR}/logs
 fi
 
+echo ${JAVA} ${JAVA_OPT}
+
 if [[ "${MODE}" == "standalone" ]]; then
     echo "Mixmicro+ Application Server is starting"
     ${JAVA} ${JAVA_OPT}

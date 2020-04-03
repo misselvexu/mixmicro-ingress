@@ -31,12 +31,21 @@ import static com.yunlsp.framework.ingress.integrate.zuul.ZuulPluginProperties.Z
 public class ZuulPluginAutoConfiguration {
 
   @Bean
-  public ZuulPropertiesBeanPostProcessor zuulPropertiesBeanPostProcessor() {
+  ZuulPropertiesBeanPostProcessor zuulPropertiesBeanPostProcessor() {
     return new ZuulPropertiesBeanPostProcessor();
   }
 
   @Bean
-  public DefaultFallbackProvider defaultFallbackProvider() {
+  DefaultFallbackProvider defaultFallbackProvider() {
     return new DefaultFallbackProvider();
+  }
+
+  @Bean
+  @ConditionalOnProperty(
+      prefix = "mixmicro.ingress.response",
+      value = "transport-service-instance-cookie",
+      havingValue = "true")
+  ZuulResponseZuulFilter responseZuulFilter() {
+    return new ZuulResponseZuulFilter();
   }
 }

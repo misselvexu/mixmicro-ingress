@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import java.io.Serializable;
 
@@ -22,5 +23,18 @@ import static com.yunlsp.framework.ingress.IngressProperties.INGRESS_PROPERTIES_
 @ConfigurationProperties(prefix = INGRESS_PROPERTIES_PREFIX)
 public class DefaultIngressProperties extends IngressProperties {
 
+  @NestedConfigurationProperty private IngressResponseProperties response = new IngressResponseProperties();
+
+  // ===
+
+  @Getter
+  @Setter
+  public static class IngressResponseProperties implements Serializable {
+
+    public static final String INGRESS_RESPONSE_PROPERTIES_PREFIX = INGRESS_PROPERTIES_PREFIX + ".response";
+
+    private boolean transportServiceInstanceCookie = false;
+
+  }
 
 }
