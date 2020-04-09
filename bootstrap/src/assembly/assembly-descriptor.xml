@@ -26,6 +26,7 @@
                 <include>*.properties</include>
                 <include>logback.xml</include>
                 <include>banner.txt</include>
+                <include>version.txt</include>
             </includes>
             <lineEnding>unix</lineEnding>
         </fileSet>
@@ -36,6 +37,7 @@
             <outputDirectory>./</outputDirectory>
             <includes>
                 <include>${project.artifactId}-*.jar</include>
+                <include>version.txt</include>
             </includes>
             <fileMode>0755</fileMode>
         </fileSet>
