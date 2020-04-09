@@ -15,6 +15,7 @@ import xyz.vopen.mixmicro.components.common.SerializableBean;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.net.SocketTimeoutException;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
@@ -53,7 +54,7 @@ public class DefaultFallbackProvider implements FallbackProvider {
       log.error("[INGRESS Fallback Provider] route exception", cause);
     }
 
-    if (cause instanceof HystrixTimeoutException) {
+    if (cause instanceof SocketTimeoutException) {
 
       return response(
           HttpStatus.GATEWAY_TIMEOUT,
@@ -61,16 +62,8 @@ public class DefaultFallbackProvider implements FallbackProvider {
           ResponseEntity.fail(
               Void.class, INTERNAL_SERVER_ERROR.value(), "Service " + route + " process timeout"));
 
-    } else if (cause instanceof BlockException) {
-
-      return response(
-          HttpStatus.TOO_MANY_REQUESTS,
-          route,
-          ResponseEntity.fail(
-              Void.class,
-              INTERNAL_SERVER_ERROR.value(),
-              "Service " + route + " has too many request"));
     } else {
+
       return response(
           INTERNAL_SERVER_ERROR,
           route,

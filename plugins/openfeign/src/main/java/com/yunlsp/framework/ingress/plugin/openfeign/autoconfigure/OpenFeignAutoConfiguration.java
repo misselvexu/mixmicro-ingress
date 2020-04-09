@@ -5,9 +5,12 @@ import com.yunlsp.framework.ingress.plugin.openfeign.decoder.OpenFeignInvokeErro
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import static com.yunlsp.framework.ingress.plugin.openfeign.OpenFeignConfigProperties.OPENFEIGN_PROPERTIES_PREFIX;
 
 /**
  * {@link OpenFeignAutoConfiguration}
@@ -17,6 +20,10 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnClass(name = {"org.springframework.cloud.openfeign.FeignContext"})
+@ConditionalOnProperty(
+    prefix = OPENFEIGN_PROPERTIES_PREFIX,
+    value = "enabled",
+    havingValue = "true")
 @EnableConfigurationProperties(OpenFeignConfigProperties.class)
 public class OpenFeignAutoConfiguration {
 
