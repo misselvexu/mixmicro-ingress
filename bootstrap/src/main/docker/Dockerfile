@@ -8,7 +8,7 @@ FROM harbor.hgj.net/library/yunlsp-openjdk8:1.1
 MAINTAINER Elve.Xu <iskp.me@gmail.com>
 
 ENV VERSION 1.0.0.RC4
-ENV PROJECT_NAME ${PROJECT_NAME}
+ENV PROJECT_NAME mixmicro-ingress-bootstrap
 
 #RUN echo "http://mirrors.aliyun.com/alpine/v3.6/main" > /etc/apk/repositories \
 #    && echo "http://mirrors.aliyun.com/alpine/v3.6/community" >> /etc/apk/repositories \
