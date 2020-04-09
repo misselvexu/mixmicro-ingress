@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SERVICE_NAME=mixmicro-ingress-bootstrap
-SERVICE_VERSION=1.0.0.RC3
+SERVICE_VERSION=1.0.0.RC4
 
 error_exit ()
 {
