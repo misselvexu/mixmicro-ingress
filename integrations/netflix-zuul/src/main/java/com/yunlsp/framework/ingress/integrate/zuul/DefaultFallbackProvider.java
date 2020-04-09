@@ -2,6 +2,8 @@ package com.yunlsp.framework.ingress.integrate.zuul;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.netflix.hystrix.exception.HystrixTimeoutException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import xyz.vopen.mixmicro.components.common.SerializableBean;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
 
 /**
@@ -23,6 +26,9 @@ import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
  * @version ${project.version} - 2020/3/24
  */
 public class DefaultFallbackProvider implements FallbackProvider {
+
+  private static final Logger log = LoggerFactory.getLogger(DefaultFallbackProvider.class);
+
   /**
    * The route this fallback will be used for.
    *
@@ -42,16 +48,39 @@ public class DefaultFallbackProvider implements FallbackProvider {
    */
   @Override
   public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
+
+    if (log.isDebugEnabled()) {
+      log.error("[INGRESS Fallback Provider] route exception", cause);
+    }
+
     if (cause instanceof HystrixTimeoutException) {
-      return response(HttpStatus.GATEWAY_TIMEOUT, route);
-    } else if (cause instanceof BlockException){
-      return response(HttpStatus.TOO_MANY_REQUESTS, route);
+
+      return response(
+          HttpStatus.GATEWAY_TIMEOUT,
+          route,
+          ResponseEntity.fail(
+              Void.class, INTERNAL_SERVER_ERROR.value(), "Service " + route + " process timeout"));
+
+    } else if (cause instanceof BlockException) {
+
+      return response(
+          HttpStatus.TOO_MANY_REQUESTS,
+          route,
+          ResponseEntity.fail(
+              Void.class,
+              INTERNAL_SERVER_ERROR.value(),
+              "Service " + route + " has too many request"));
     } else {
-      return response(HttpStatus.INTERNAL_SERVER_ERROR, route);
+      return response(
+          INTERNAL_SERVER_ERROR,
+          route,
+          ResponseEntity.fail(
+              Void.class, INTERNAL_SERVER_ERROR.value(), "Service " + route + " process failed"));
     }
   }
 
-  private ClientHttpResponse response(final HttpStatus status, String route) {
+  private ClientHttpResponse response(
+      final HttpStatus status, String route, final ResponseEntity<?> entity) {
 
     return new ClientHttpResponse() {
 
@@ -78,7 +107,6 @@ public class DefaultFallbackProvider implements FallbackProvider {
       @Override
       @NonNull
       public InputStream getBody() {
-        ResponseEntity<Void> entity = ResponseEntity.fail(Void.class, SERVICE_UNAVAILABLE.value(), "Service " + route + " is unavailable");
         return new ByteArrayInputStream(SerializableBean.bytes(entity));
       }
 

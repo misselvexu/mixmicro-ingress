@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.yunlsp.framework</groupId>
         <artifactId>mixmicro-ingress-all</artifactId>
-        <version>1.0.0.RC3</version>
+        <version>1.0.0.RC4</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>mixmicro-ingress-metadata-all</artifactId>
-    <version>1.0.0.RC3</version>
+    <version>1.0.0.RC4</version>
     <packaging>pom</packaging>
 
     <name>Mixmicro+ Ingress Metadata Module :: ${project.version}</name>
