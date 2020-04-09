@@ -7,7 +7,7 @@
 FROM harbor.hgj.net/library/yunlsp-openjdk8:1.1
 MAINTAINER Elve.Xu <iskp.me@gmail.com>
 
-ENV VERSION 1.0.0.RC4
+ENV VERSION 1.0.0.RC5
 
 ADD mixmicro-ingress-bootstrap-${VERSION}.zip /mixmicro-ingress-bootstrap/mixmicro-ingress-bootstrap-${VERSION}.zip
 
