@@ -10,6 +10,9 @@ MAINTAINER Elve.Xu <iskp.me@gmail.com>
 ARG PROJECT_VERSION
 ARG PROJECT_NAME
 
+ENV PROJECT_VERSION=$PROJECT_VERSION
+ENV PROJECT_NAME=$PROJECT_NAME
+
 #RUN echo "http://mirrors.aliyun.com/alpine/v3.6/main" > /etc/apk/repositories \
 #    && echo "http://mirrors.aliyun.com/alpine/v3.6/community" >> /etc/apk/repositories \
 #    && apk update upgrade \
