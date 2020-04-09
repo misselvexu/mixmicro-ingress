@@ -147,6 +147,10 @@
                 <configuration>
                     <imageName>${project.artifactId}:${project.version}</imageName>
                     <dockerDirectory>src/main/docker</dockerDirectory>
+                    <buildArgs>
+                        <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
+                        <PROJECT_NAME>${project.artifactId}</PROJECT_NAME>
+                    </buildArgs>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>

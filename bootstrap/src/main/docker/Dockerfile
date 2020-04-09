@@ -7,8 +7,8 @@
 FROM harbor.hgj.net/library/yunlsp-openjdk8:1.1
 MAINTAINER Elve.Xu <iskp.me@gmail.com>
 
-ENV VERSION 1.0.0.RC4
-ENV PROJECT_NAME mixmicro-ingress-bootstrap
+ARG PROJECT_VERSION
+ARG PROJECT_NAME
 
 #RUN echo "http://mirrors.aliyun.com/alpine/v3.6/main" > /etc/apk/repositories \
 #    && echo "http://mirrors.aliyun.com/alpine/v3.6/community" >> /etc/apk/repositories \
@@ -17,9 +17,9 @@ ENV PROJECT_NAME mixmicro-ingress-bootstrap
 #    && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 #    && echo "Asia/Shanghai" > /etc/timezone
 
-ADD ${PROJECT_NAME}-${VERSION}.zip /${PROJECT_NAME}/${PROJECT_NAME}-${VERSION}.zip
+ADD ${PROJECT_NAME}-${PROJECT_VERSION}.zip /${PROJECT_NAME}/${PROJECT_NAME}-${PROJECT_VERSION}.zip
 
-RUN unzip /${PROJECT_NAME}/${PROJECT_NAME}-${VERSION}.zip -d /${PROJECT_NAME} \
-    && rm -rf /${PROJECT_NAME}/${PROJECT_NAME}-${VERSION}.zip
+RUN unzip /${PROJECT_NAME}/${PROJECT_NAME}-${PROJECT_VERSION}.zip -d /${PROJECT_NAME} \
+    && rm -rf /${PROJECT_NAME}/${PROJECT_NAME}-${PROJECT_VERSION}.zip
 
 ENTRYPOINT ["/${PROJECT_NAME}/bin/startup.sh"]
