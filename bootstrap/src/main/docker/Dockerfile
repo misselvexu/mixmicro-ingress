@@ -7,22 +7,11 @@
 FROM harbor.hgj.net/library/yunlsp-openjdk8:1.1
 MAINTAINER Elve.Xu <iskp.me@gmail.com>
 
-ARG PROJECT_VERSION
-ARG PROJECT_NAME
+ENV VERSION 1.0.0.RC4
 
-ENV PROJECT_VERSION=$PROJECT_VERSION
-ENV PROJECT_NAME=$PROJECT_NAME
+ADD mixmicro-ingress-bootstrap-${VERSION}.zip /mixmicro-ingress-bootstrap/mixmicro-ingress-bootstrap-${VERSION}.zip
 
-#RUN echo "http://mirrors.aliyun.com/alpine/v3.6/main" > /etc/apk/repositories \
-#    && echo "http://mirrors.aliyun.com/alpine/v3.6/community" >> /etc/apk/repositories \
-#    && apk update upgrade \
-#    && apk add --no-cache procps unzip curl bash tzdata \
-#    && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-#    && echo "Asia/Shanghai" > /etc/timezone
+RUN unzip /mixmicro-ingress-bootstrap/mixmicro-ingress-bootstrap-${VERSION}.zip -d /mixmicro-ingress-bootstrap \
+    && rm -rf /mixmicro-ingress-bootstrap/mixmicro-ingress-bootstrap-${VERSION}.zip
 
-ADD ${PROJECT_NAME}-${PROJECT_VERSION}.zip /${PROJECT_NAME}/${PROJECT_NAME}-${PROJECT_VERSION}.zip
-
-RUN unzip /${PROJECT_NAME}/${PROJECT_NAME}-${PROJECT_VERSION}.zip -d /${PROJECT_NAME} \
-    && rm -rf /${PROJECT_NAME}/${PROJECT_NAME}-${PROJECT_VERSION}.zip
-
-ENTRYPOINT ["/${PROJECT_NAME}/bin/startup.sh"]
+ENTRYPOINT ["/mixmicro-ingress-bootstrap/bin/startup.sh"]
