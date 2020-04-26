@@ -33,7 +33,7 @@ public class SpringfoxSwaggerResourceChangeListener
 
   private static final Logger log = LoggerFactory.getLogger(SpringfoxSwaggerResourceChangeListener.class);
 
-  private static final String SERVICE_INSTANCE_SWAGGER_DOCS_URI = "/%s/v2/api-docs";
+  private static final String SERVICE_INSTANCE_SWAGGER_DOCS_URI = "%s/v2/api-docs";
 
   private static volatile List<SwaggerResource> resources = Lists.newArrayList();
 
@@ -106,7 +106,9 @@ public class SpringfoxSwaggerResourceChangeListener
       return;
     }
 
-    String location = String.format(SERVICE_INSTANCE_SWAGGER_DOCS_URI, route.getId());
+    String prefix = route.getPath().replace("/**","").replace("/*","");
+
+    String location = String.format(SERVICE_INSTANCE_SWAGGER_DOCS_URI, prefix);
 
     SwaggerResource resource = build(route.getLocation(), location, Optional.ofNullable(route.getVersion()).orElse("NaN"));
     resources.add(resource);
