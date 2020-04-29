@@ -82,7 +82,8 @@ JAVA_OPT="${JAVA_OPT} -Druntime.env=${ENV}"
 JAVA_OPT="${JAVA_OPT} -Dspring.profiles.active=${ENV}"
 
 ## check skywalking config
-if [[ "${ENV}" == "prod" && ${SW_AGENT_COLLECTOR_BACKEND_SERVICES} ]]; then
+## if [[ "${ENV}" == "prod" && ${SW_AGENT_COLLECTOR_BACKEND_SERVICES} ]]; then
+if [[ ${SW_AGENT_COLLECTOR_BACKEND_SERVICES} ]]; then
     # enabled monitor
     JAVA_OPT="${JAVA_OPT} -javaagent:/data/skywalking-agent/skywalking-agent.jar -Dskywalking.agent.service_name=${SERVICE_NAME} -Dskywalking.collector.backend_service=${SW_AGENT_COLLECTOR_BACKEND_SERVICES}"
 fi
