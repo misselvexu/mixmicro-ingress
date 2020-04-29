@@ -15,14 +15,6 @@ error_exit ()
 [[ ! -e "$JAVA_HOME/bin/java" ]] && JAVA_HOME=/opt/taobao/java
 [[ ! -e "$JAVA_HOME/bin/java" ]] && error_exit "Please set the JAVA_HOME variable in your environment, We need java(x64)! jdk8 or later is better!"
 
-## check `SW_AGENT_COLLECTOR_BACKEND_SERVICES`
-
-if [[ ! ${SW_AGENT_COLLECTOR_BACKEND_SERVICES} ]];then
-	echo "INFO: Apache skywalking server address is not set, will be ignore ."
-else
-    echo $SW_AGENT_COLLECTOR_BACKEND_SERVICES
-fi
-
 ## check `SERVER_ENV`
 if [[ ! ${SERVER_ENV} ]];then
 	echo "INFO: server running env is not set, will use default env=prod ."
@@ -82,10 +74,9 @@ JAVA_OPT="${JAVA_OPT} -Druntime.env=${ENV}"
 JAVA_OPT="${JAVA_OPT} -Dspring.profiles.active=${ENV}"
 
 ## check skywalking config
-## if [[ "${ENV}" == "prod" && ${SW_AGENT_COLLECTOR_BACKEND_SERVICES} ]]; then
-if [[ ${SW_AGENT_COLLECTOR_BACKEND_SERVICES} ]]; then
+if [[ ! "${ENV}" == "default" ]]; then
     # enabled monitor
-    JAVA_OPT="${JAVA_OPT} -javaagent:/data/skywalking-agent/skywalking-agent.jar -Dskywalking.agent.service_name=${SERVICE_NAME} -Dskywalking.collector.backend_service=${SW_AGENT_COLLECTOR_BACKEND_SERVICES}"
+    JAVA_OPT="${JAVA_OPT} -javaagent:/data/skywalking-agent/skywalking-agent.jar -Dskywalking.agent.service_name=${SERVICE_NAME}"
 fi
 
 JAVA_OPT="${JAVA_OPT} -XX:-OmitStackTraceInFastThrow"
