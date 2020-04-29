@@ -52,6 +52,7 @@ done
 export JAVA_HOME
 export JAVA="$JAVA_HOME/bin/java"
 export BASE_DIR=`cd $(dirname $0)/..; pwd`
+export MIXMICRO_SERVER_HOME=$BASE_DIR
 export DEFAULT_SEARCH_LOCATIONS="classpath:/,classpath:/config/,file:./,file:./config/"
 export CUSTOM_SEARCH_LOCATIONS="${DEFAULT_SEARCH_LOCATIONS},file:${BASE_DIR}/config/"
 export LOG_DIR="${BASE_DIR}/logs"
