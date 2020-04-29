@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SERVICE_NAME=mixmicro-ingress-bootstrap
-SERVICE_VERSION=1.0.0.RC5
+SERVICE_VERSION=1.0.0.RC6
 
 error_exit ()
 {
@@ -25,8 +25,8 @@ fi
 
 ## check `SERVER_ENV`
 if [[ ! ${SERVER_ENV} ]];then
-	echo "INFO: server running env is not set, will use default env=production ."
-    export ENV="production"
+	echo "INFO: server running env is not set, will use default env=prod ."
+    export ENV="prod"
 else
     export ENV=${SERVER_ENV}
 fi
@@ -81,7 +81,7 @@ JAVA_OPT="${JAVA_OPT} -Druntime.env=${ENV}"
 JAVA_OPT="${JAVA_OPT} -Dspring.profiles.active=${ENV}"
 
 ## check skywalking config
-if [[ "${ENV}" == "production" && ${SW_AGENT_COLLECTOR_BACKEND_SERVICES} ]]; then
+if [[ "${ENV}" == "prod" && ${SW_AGENT_COLLECTOR_BACKEND_SERVICES} ]]; then
     # enabled monitor
     JAVA_OPT="${JAVA_OPT} -javaagent:/data/skywalking-agent/skywalking-agent.jar -Dskywalking.agent.service_name=${SERVICE_NAME} -Dskywalking.collector.backend_service=${SW_AGENT_COLLECTOR_BACKEND_SERVICES}"
 fi

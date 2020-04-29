@@ -106,6 +106,13 @@
             <groupId>com.yunlsp.framework.components</groupId>
             <artifactId>mixmicro-components-starter-banner</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.yunlsp</groupId>
+            <artifactId>monitor</artifactId>
+        </dependency>
+
+
     </dependencies>
 
     <dependencyManagement>

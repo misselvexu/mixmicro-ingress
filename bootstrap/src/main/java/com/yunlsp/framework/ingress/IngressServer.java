@@ -22,7 +22,7 @@ public class IngressServer {
     new SpringApplicationBuilder()
         .sources(IngressServer.class)
         // default properties
-        .properties("--spring.profiles.active=production")
+        .properties("--spring.profiles.active=prod")
         .web(WebApplicationType.SERVLET)
         .run(args);
   }

@@ -144,6 +144,11 @@
                 <type>pom</type>
             </dependency>
 
+            <dependency>
+                <groupId>com.yunlsp</groupId>
+                <artifactId>monitor</artifactId>
+                <version>1.0.0-RELEASE</version>
+            </dependency>
 
             <!-- Spring Cloud Dependency  -->
             <!--
