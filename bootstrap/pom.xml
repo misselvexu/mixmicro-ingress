@@ -93,6 +93,11 @@
 
         <dependency>
             <groupId>com.yunlsp.framework</groupId>
+            <artifactId>mixmicro-ingress-plugin-dubbo-gateway</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yunlsp.framework</groupId>
             <artifactId>mixmicro-ingress-plugin-openfeign</artifactId>
         </dependency>
 

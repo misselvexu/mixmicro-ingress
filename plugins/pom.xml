@@ -24,6 +24,7 @@
         <module>whale-authenticate</module>
         <module>dynamic-router</module>
         <module>openfeign</module>
+        <module>dubbo-gateway</module>
 
     </modules>
 
@@ -66,6 +67,12 @@
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
                 <artifactId>mixmicro-ingress-plugin-dynamic-router</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.yunlsp.framework</groupId>
+                <artifactId>mixmicro-ingress-plugin-dubbo-gateway</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
