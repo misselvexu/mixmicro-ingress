@@ -13,7 +13,6 @@ import xyz.vopen.mixmicro.kits.StringUtils;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static java.net.HttpURLConnection.HTTP_OK;
 import static org.springframework.http.HttpHeaders.SET_COOKIE;
 
 /**
@@ -46,6 +45,8 @@ public class ZuulResponseZuulFilter extends ZuulFilter {
 
     RequestContext ctx = RequestContext.getCurrentContext();
 
+    int httpCode = ctx.getResponseStatusCode();
+
     try{
       HttpServletResponse response = ctx.getResponse();
       ClientHttpResponse proxyResponse = (ClientHttpResponse) ctx.get("zuulResponse");
@@ -61,7 +62,7 @@ public class ZuulResponseZuulFilter extends ZuulFilter {
     } catch (Exception ignored) {
     }
 
-    processResponse(ctx, true, HTTP_OK, null);
+    processResponse(ctx, true, httpCode, null);
     return null;
   }
 
