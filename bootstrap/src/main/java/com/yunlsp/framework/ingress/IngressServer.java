@@ -6,7 +6,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancedRetryFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.retry.backoff.BackOffPolicy;
 import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 
@@ -33,7 +32,6 @@ public class IngressServer {
 
   // 重试策略
 
-  @Bean
   LoadBalancedRetryFactory retryFactory() {
     return new LoadBalancedRetryFactory() {
       @Override
