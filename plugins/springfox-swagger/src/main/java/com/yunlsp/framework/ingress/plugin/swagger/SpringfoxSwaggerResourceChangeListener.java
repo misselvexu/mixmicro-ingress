@@ -33,6 +33,8 @@ public class SpringfoxSwaggerResourceChangeListener
 
   private static final Logger log = LoggerFactory.getLogger(SpringfoxSwaggerResourceChangeListener.class);
 
+  private static final String FILE_SEP = "/";
+
   private static final String SERVICE_INSTANCE_SWAGGER_DOCS_URI = "%s/v2/api-docs";
 
   private static volatile List<SwaggerResource> resources = Lists.newArrayList();
@@ -107,6 +109,13 @@ public class SpringfoxSwaggerResourceChangeListener
     }
 
     String prefix = route.getPath().replace("/**","").replace("/*","");
+
+    if(xyz.vopen.mixmicro.kits.StringUtils.isNotBlank(route.getContextPath())) {
+      prefix = prefix + route.getContextPath();
+      if(prefix.endsWith(FILE_SEP)) {
+        prefix = prefix.substring(0, prefix.length() - 1);
+      }
+    }
 
     String location = String.format(SERVICE_INSTANCE_SWAGGER_DOCS_URI, prefix);
 

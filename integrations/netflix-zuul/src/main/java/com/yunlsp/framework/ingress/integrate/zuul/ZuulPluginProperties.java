@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 
 import java.io.Serializable;
@@ -53,6 +52,8 @@ public class ZuulPluginProperties implements Serializable {
     public static class ZuulExtendedRoute extends ZuulProperties.ZuulRoute {
 
       private String version;
+
+      private String contextPath;
 
       private SwaggerProperties swagger = new SwaggerProperties();
     }
