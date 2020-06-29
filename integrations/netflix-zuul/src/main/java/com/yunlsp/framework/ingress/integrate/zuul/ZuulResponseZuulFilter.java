@@ -1,5 +1,7 @@
 package com.yunlsp.framework.ingress.integrate.zuul;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
@@ -14,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 import static org.springframework.http.HttpHeaders.SET_COOKIE;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static xyz.vopen.mixmicro.components.common.MixmicroConstants.MIXMICRO_FEIGN_REQUEST_OVER_INGRESS;
+import static xyz.vopen.mixmicro.components.common.MixmicroConstants.MIXMICRO_SERVICE_INVOKE_HEADER;
 
 /**
  * {@link ZuulResponseZuulFilter}
@@ -77,10 +82,53 @@ public class ZuulResponseZuulFilter extends ZuulFilter {
   @SuppressWarnings("SameParameterValue")
   private void processResponse(
       RequestContext ctx, boolean sendZuulResponse, Integer statusCode, String responseBody) {
+
+    try{
+      if(doCompatibleResponse(ctx, sendZuulResponse, statusCode, responseBody)) {
+        return;
+      }
+    } catch (Exception ignore) {}
+
     ctx.setSendZuulResponse(sendZuulResponse);
     ctx.setResponseStatusCode(statusCode);
     if (StringUtils.isNotBlank(responseBody) && !sendZuulResponse) {
       ctx.setResponseBody(responseBody);
     }
   }
+
+  private static final String RESPONSE_CODE_KEY = "code";
+
+  private boolean doCompatibleResponse(RequestContext ctx, boolean sendZuulResponse, Integer statusCode, String responseBody) {
+
+    try{
+      String requestOverIngress = ctx.getRequest().getHeader(MIXMICRO_FEIGN_REQUEST_OVER_INGRESS);
+
+      if(StringUtils.isNotBlank(requestOverIngress) && "true".equalsIgnoreCase(requestOverIngress)) {
+
+        String serviceInvokHeader = ctx.getRequest().getHeader(MIXMICRO_SERVICE_INVOKE_HEADER);
+
+        if(StringUtils.isNotBlank(serviceInvokHeader)) {
+
+          ctx.setSendZuulResponse(sendZuulResponse);
+
+          JSONObject object = JSON.parseObject(responseBody);
+
+          if(object.containsKey(RESPONSE_CODE_KEY) && object.getInteger(RESPONSE_CODE_KEY) == INTERNAL_SERVER_ERROR.value()) {
+            ctx.setResponseStatusCode(INTERNAL_SERVER_ERROR.value());
+            if (StringUtils.isNotBlank(responseBody) && !sendZuulResponse) {
+              ctx.setResponseBody(responseBody);
+              return true;
+            }
+          }
+        }
+      }
+
+    } catch (Exception e) {
+      log.warn("[==ZUUL==] decode request feign header exception", e);
+    }
+
+    return false;
+  }
+
+
 }
