@@ -1,7 +1,5 @@
 package com.yunlsp.framework.ingress.integrate.zuul;
 
-import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.netflix.hystrix.exception.HystrixTimeoutException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
@@ -18,7 +16,6 @@ import java.io.InputStream;
 import java.net.SocketTimeoutException;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
 
 /**
  * {@link DefaultFallbackProvider}
@@ -26,6 +23,7 @@ import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2020/3/24
  */
+@Deprecated
 public class DefaultFallbackProvider implements FallbackProvider {
 
   private static final Logger log = LoggerFactory.getLogger(DefaultFallbackProvider.class);
@@ -95,7 +93,8 @@ public class DefaultFallbackProvider implements FallbackProvider {
       }
 
       @Override
-      public void close() {}
+      public void close() {
+      }
 
       @Override
       @NonNull

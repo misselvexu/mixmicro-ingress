@@ -1,6 +1,5 @@
 package com.yunlsp.framework.ingress.integrate.zuul;
 
-import com.alibaba.csp.sentinel.adapter.gateway.zuul.filters.SentinelZuulPreFilter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -36,9 +35,14 @@ public class ZuulPluginAutoConfiguration {
     return new ZuulPropertiesBeanPostProcessor();
   }
 
+//  @Bean
+//  DefaultFallbackProvider defaultFallbackProvider() {
+//    return new DefaultFallbackProvider();
+//  }
+
   @Bean
-  DefaultFallbackProvider defaultFallbackProvider() {
-    return new DefaultFallbackProvider();
+  DefaultZuulBlockFallbackProvider defaultZuulBlockFallbackProvider() {
+    return new DefaultZuulBlockFallbackProvider();
   }
 
   @Bean

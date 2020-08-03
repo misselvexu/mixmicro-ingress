@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -58,7 +57,6 @@ public class SentinelZuulAutoConfiguration {
   }
 
   @Bean
-  @ConditionalOnMissingBean
   public SentinelZuulPreFilter sentinelZuulPreFilter() {
     logger.info(
         "[Sentinel Zuul] register SentinelZuulPreFilter {}", zuulProperties.getOrder().getPre());
@@ -66,7 +64,6 @@ public class SentinelZuulAutoConfiguration {
   }
 
   @Bean
-  @ConditionalOnMissingBean
   public SentinelZuulPostFilter sentinelZuulPostFilter() {
     logger.info(
         "[Sentinel Zuul] register SentinelZuulPostFilter {}", zuulProperties.getOrder().getPost());
@@ -74,7 +71,6 @@ public class SentinelZuulAutoConfiguration {
   }
 
   @Bean
-  @ConditionalOnMissingBean
   public SentinelZuulErrorFilter sentinelZuulErrorFilter() {
     logger.info(
         "[Sentinel Zuul] register SentinelZuulErrorFilter {}",
