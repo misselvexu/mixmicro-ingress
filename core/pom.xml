@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.yunlsp.framework</groupId>
         <artifactId>mixmicro-ingress-all</artifactId>
-        <version>1.0.0.RC7</version>
+        <version>1.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>mixmicro-ingress-core</artifactId>
-    <version>1.0.0.RC7</version>
+    <version>1.0.1</version>
 
     <name>Mixmicro+ Ingress Core Module :: ${project.version}</name>
     <description>🏗 Mixmicro+ Ingress Core Module</description>

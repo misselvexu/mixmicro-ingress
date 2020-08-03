@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SERVICE_NAME=mixmicro-ingress-bootstrap
-SERVICE_VERSION=1.0.0.RC7
+SERVICE_VERSION=1.0.1
 
 error_exit ()
 {
@@ -56,7 +56,7 @@ export LOG_DIR="${BASE_DIR}/logs"
 ## check `JVM_PARAM`
 if [[ ! ${JVM_PARAM} ]];then
 	echo "INFO: jvm param is not assigned , will use application default config ."
-	JAVA_OPT="${JAVA_OPT} -server -Xms512m -Xmx512m -Xmn256m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=320m"
+	JAVA_OPT="${JAVA_OPT} -server -Xms1g -Xmx1g -Xmn512m -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=320m"
 else
     JAVA_OPT="${JAVA_OPT} -server ${JVM_PARAM} -Xmn256m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=320m"
 fi
