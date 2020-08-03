@@ -58,7 +58,7 @@ if [[ ! ${JVM_PARAM} ]];then
 	echo "INFO: jvm param is not assigned , will use application default config ."
 	JAVA_OPT="${JAVA_OPT} -server -Xms1g -Xmx1g -Xmn512m -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=320m"
 else
-    JAVA_OPT="${JAVA_OPT} -server ${JVM_PARAM} -Xmn256m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=320m"
+    JAVA_OPT="${JAVA_OPT} -server ${JVM_PARAM} -Xmn512m -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=320m"
 fi
 
 #JAVA_OPT="${JAVA_OPT} -server -Xms512m -Xmx512m -Xmn256m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=320m"
