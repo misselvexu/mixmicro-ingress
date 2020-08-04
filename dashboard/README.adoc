@@ -2,7 +2,7 @@
 
 [source]
 ----
-java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=127.0.0.1:8080 -Dproject.name=ingress-dashboard -jar sentinel-dashboard.jar
+java -Dserver.port=4444 -Dcsp.sentinel.dashboard.server=172.17.16.25:4444 -Dproject.name=ingress-dashboard -jar ingress-dashboard.jar
 ----
 
 == Reference
