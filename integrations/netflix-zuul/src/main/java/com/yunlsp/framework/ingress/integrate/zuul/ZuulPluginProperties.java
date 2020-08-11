@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 
 import java.io.Serializable;
@@ -32,6 +31,8 @@ public class ZuulPluginProperties implements Serializable {
   public static final String ZUUL_PLUGIN_PROPERTIES_PREFIX = INGRESS_PROPERTIES_PREFIX + ".zuul";
 
   private boolean enabled = true;
+
+  // ZUUL EXT CONFIG PROPERTIES
 
   @Getter
   @Setter

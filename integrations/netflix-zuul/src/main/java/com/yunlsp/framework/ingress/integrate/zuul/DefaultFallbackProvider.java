@@ -22,6 +22,7 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2020/3/24
+ * @deprecated will removed <code>1.1.0</code>
  */
 @Deprecated
 public class DefaultFallbackProvider implements FallbackProvider {

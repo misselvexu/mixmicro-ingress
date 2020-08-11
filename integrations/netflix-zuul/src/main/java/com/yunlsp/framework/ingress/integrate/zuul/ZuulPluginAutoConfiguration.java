@@ -1,5 +1,7 @@
 package com.yunlsp.framework.ingress.integrate.zuul;
 
+import com.yunlsp.framework.ingress.core.DefaultIngressProperties;
+import com.yunlsp.framework.ingress.core.access.AccessService;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -57,5 +59,10 @@ public class ZuulPluginAutoConfiguration {
   @Bean
   ZuulRouterRreFilter zuulRouterRreFilter(ZuulPluginProperties properties) {
     return new ZuulRouterRreFilter(properties);
+  }
+
+  @Bean
+  ZuulRouterRreAccessFilter zuulRouterRreAccessFilter(ZuulPluginProperties properties, AccessService accessService) {
+    return new ZuulRouterRreAccessFilter(properties, accessService);
   }
 }

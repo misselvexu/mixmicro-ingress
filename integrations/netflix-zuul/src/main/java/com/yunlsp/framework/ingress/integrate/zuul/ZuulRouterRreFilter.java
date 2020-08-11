@@ -6,7 +6,6 @@ import com.netflix.zuul.exception.ZuulException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
-import xyz.vopen.mixmicro.kits.StringUtils;
 
 import static xyz.vopen.mixmicro.components.common.MixmicroConstants.MIXMICRO_INGRESS_INVOKE_HEADER;
 
@@ -50,23 +49,5 @@ public class ZuulRouterRreFilter extends ZuulFilter {
     ctx.addZuulRequestHeader(MIXMICRO_INGRESS_INVOKE_HEADER, "true");
 
     return null;
-  }
-
-  /**
-   * Process Response
-   *
-   * @param ctx ctx
-   * @param sendZuulResponse response
-   * @param statusCode status code
-   * @param responseBody body
-   */
-  @SuppressWarnings("SameParameterValue")
-  private void processResponse(
-      RequestContext ctx, boolean sendZuulResponse, Integer statusCode, String responseBody) {
-    ctx.setSendZuulResponse(sendZuulResponse);
-    ctx.setResponseStatusCode(statusCode);
-    if (StringUtils.isNotBlank(responseBody) && !sendZuulResponse) {
-      ctx.setResponseBody(responseBody);
-    }
   }
 }

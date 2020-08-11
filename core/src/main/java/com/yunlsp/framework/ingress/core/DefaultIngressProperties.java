@@ -1,14 +1,14 @@
 package com.yunlsp.framework.ingress.core;
 
 import com.yunlsp.framework.ingress.IngressProperties;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.yunlsp.framework.ingress.IngressProperties.INGRESS_PROPERTIES_PREFIX;
 
@@ -24,6 +24,10 @@ import static com.yunlsp.framework.ingress.IngressProperties.INGRESS_PROPERTIES_
 public class DefaultIngressProperties extends IngressProperties {
 
   @NestedConfigurationProperty private IngressResponseProperties response = new IngressResponseProperties();
+
+  // Access Urls
+
+  private List<String> accessUrls = new ArrayList<>();
 
   // ===
 

@@ -1,7 +1,9 @@
 package com.yunlsp.framework.ingress.core.autoconfigure;
 
 import com.yunlsp.framework.ingress.core.DefaultIngressProperties;
+import com.yunlsp.framework.ingress.core.access.AccessService;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 /**
  * {@link DefaultIngressAutoConfiguration}
@@ -12,5 +14,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties(DefaultIngressProperties.class)
 public class DefaultIngressAutoConfiguration {
 
-  
+  @Bean
+  public AccessService accessService(DefaultIngressProperties defaultIngressProperties) {
+    return new AccessService(defaultIngressProperties);
+  }
+
 }
