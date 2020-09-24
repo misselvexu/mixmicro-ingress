@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.yunlsp.framework</groupId>
         <artifactId>mixmicro-ingress-plugin-all</artifactId>
-        <version>1.0.2.RC2</version>
+        <version>1.0.2.RC3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>mixmicro-ingress-plugin-openfeign</artifactId>
-    <version>1.0.2.RC2</version>
+    <version>1.0.2.RC3</version>
 
     <name>Mixmicro+ Ingress Openfeign Plugin Module :: ${project.version}</name>
     <description>🏗 Mixmicro+ Ingress Openfeign Plugin Module</description>

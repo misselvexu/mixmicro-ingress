@@ -29,6 +29,8 @@ public class DefaultIngressProperties extends IngressProperties {
 
   private List<String> accessUrls = new ArrayList<>();
 
+  private List<String> insensitiveUrls = new ArrayList<>();
+
   // ===
 
   @Getter

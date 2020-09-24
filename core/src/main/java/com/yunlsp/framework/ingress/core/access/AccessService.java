@@ -17,8 +17,14 @@ public class AccessService {
   }
 
   public boolean checkAccessAllow(String uri) {
-    return this.defaultIngressProperties.getAccessUrls().stream().anyMatch(uri::contains) ||
-        this.defaultIngressProperties.getAccessUrls().stream().anyMatch(uri::matches);
-  }
 
+    // check insensitive
+    if (this.defaultIngressProperties.getInsensitiveUrls().stream().anyMatch(uri::contains)
+        || this.defaultIngressProperties.getInsensitiveUrls().stream().anyMatch(uri::matches)) {
+      return false;
+    }
+
+    return this.defaultIngressProperties.getAccessUrls().stream().anyMatch(uri::contains)
+        || this.defaultIngressProperties.getAccessUrls().stream().anyMatch(uri::matches);
+  }
 }
