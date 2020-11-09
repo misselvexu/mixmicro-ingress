@@ -67,7 +67,7 @@ if [[ "${DEBUG}" == "true" ]]; then
     JAVA_OPT="${JAVA_OPT} -Xdebug -Xrunjdwp:transport=dt_socket,address=9555,server=y,suspend=n"
 fi
 
-JAVA_OPT="${JAVA_OPT} -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:CMSInitiatingOccupancyFraction=70 -XX:+CMSParallelRemarkEnabled -XX:SoftRefLRUPolicyMSPerMB=0 -XX:+CMSClassUnloadingEnabled -XX:SurvivorRatio=8  -XX:-UseParNewGC"
+JAVA_OPT="${JAVA_OPT} -XX:+UseConcMarkSweepGC -XX:CMSMaxAbortablePrecleanTime=1000 -XX:CMSScheduleRemarkEdenPenetration=20 -XX:+CMSScavengeBeforeRemark -XX:+UseCMSCompactAtFullCollection -XX:CMSInitiatingOccupancyFraction=70 -XX:+UseCMSInitiatingOccupancyOnly -XX:+CMSParallelRemarkEnabled -XX:SoftRefLRUPolicyMSPerMB=0 -XX:+CMSClassUnloadingEnabled -XX:SurvivorRatio=8  -XX:-UseParNewGC"
 JAVA_OPT="${JAVA_OPT} -Djava.net.preferIPv4Stack=true -Dlogging.file=$LOG_DIR/$SERVICE_NAME.log -verbose:gc -Xloggc:${BASE_DIR}/logs/${SERVICE_NAME}_gc.log -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$LOG_DIR/HeapDumpOnOutOfMemoryError/ -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintAdaptiveSizePolicy"
 JAVA_OPT="${JAVA_OPT} -Dmixmicro.server.home=${BASE_DIR}"
 JAVA_OPT="${JAVA_OPT} -Druntime.env=${ENV}"
