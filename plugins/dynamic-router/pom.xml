@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.yunlsp.framework</groupId>
         <artifactId>mixmicro-ingress-plugin-all</artifactId>
-        <version>1.0.2.RC3</version>
+        <version>2.0.0.BUILD-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>mixmicro-ingress-plugin-dynamic-router</artifactId>
-    <version>1.0.2.RC3</version>
+    <version>2.0.0.BUILD-SNAPSHOT</version>
 
     <name>Mixmicro+ Ingress Dynamic Router Plugin Module :: ${project.version}</name>
     <description>🏗 Mixmicro+ Ingress Dynamic Router Plugin Module</description>

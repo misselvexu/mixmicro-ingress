@@ -4,7 +4,7 @@
 
     <groupId>com.yunlsp.framework</groupId>
     <artifactId>mixmicro-ingress-all</artifactId>
-    <version>1.0.2.RC3</version>
+    <version>2.0.0.BUILD-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Mixmicro+ Ingress :: ${project.version}</name>
@@ -27,9 +27,9 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <!-- Framework's version -->
-        <spring.cloud.version>Hoxton.SR2</spring.cloud.version>
-        <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
-        <spring.framework.version>5.2.2.RELEASE</spring.framework.version>
+        <spring.cloud.version>Hoxton.SR8</spring.cloud.version>
+        <spring.boot.version>2.2.10.RELEASE</spring.boot.version>
+        <spring.framework.version>5.2.9.RELEASE</spring.framework.version>
 
         <jaeger.opentracing.version>2.0.3</jaeger.opentracing.version>
         <swagger.version>1.5.18</swagger.version>
@@ -139,7 +139,7 @@
             <dependency>
                 <groupId>com.yunlsp.framework.components</groupId>
                 <artifactId>mixmicro-components-dependencies</artifactId>
-                <version>2020.03.RC4</version>
+                <version>1.0.7.RELEASE</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
