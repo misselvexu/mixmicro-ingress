@@ -18,6 +18,7 @@
 
     <modules>
         <module>netflix-zuul</module>
+        <module>websocket-forward</module>
     </modules>
 
 
@@ -29,6 +30,12 @@
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
                 <artifactId>mixmicro-ingress-integration-netflix-zuul</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.yunlsp.framework</groupId>
+                <artifactId>mixmicro-ingress-integration-websocket</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

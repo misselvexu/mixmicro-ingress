@@ -53,7 +53,7 @@ public class SentinelZuulAutoConfiguration {
   private void init() {
     requestOriginParserOptional.ifPresent(ZuulGatewayCallbackManager::setOriginParser);
     System.setProperty(
-        SentinelConfig.APP_TYPE, ConfigConstants.APP_TYPE_ZUUL_GATEWAY);
+        SentinelConfig.APP_TYPE_PROP_KEY, ConfigConstants.APP_TYPE_ZUUL_GATEWAY);
   }
 
   @Bean
