@@ -64,6 +64,11 @@
             <artifactId>mixmicro-ingress-integration-netflix-zuul</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.yunlsp.framework</groupId>
+            <artifactId>mixmicro-ingress-integration-websocket</artifactId>
+        </dependency>
+
 
         <!-- Ingress Plugins -->
         <dependency>

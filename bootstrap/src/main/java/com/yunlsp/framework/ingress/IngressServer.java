@@ -1,5 +1,6 @@
 package com.yunlsp.framework.ingress;
 
+import com.yunlsp.framework.ingress.integrate.websocket.EnableWebSocketProxy;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -18,6 +19,7 @@ import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableCircuitBreaker
+@EnableWebSocketProxy
 public class IngressServer {
 
   public static void main(String[] args) {

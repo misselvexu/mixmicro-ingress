@@ -35,6 +35,7 @@
         <swagger.version>1.5.18</swagger.version>
         <springfox.swagger.version>2.9.0</springfox.swagger.version>
         <mybatis.plus.version>3.1.0</mybatis.plus.version>
+        <netty.version>4.1.52.Final</netty.version>
 
         <!-- Plugins Version -->
         <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
@@ -385,6 +386,23 @@
                 <version>25.1-jre</version>
             </dependency>
 
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-handler</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-common</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-codec-http</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
