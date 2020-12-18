@@ -9,11 +9,11 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>mixmicro-ingress-plugin-alibaba-sentinel-zuul</artifactId>
+    <artifactId>mixmicro-ingress-plugin-alibaba-sentinel-spring-cloud-gateway</artifactId>
     <version>1.2.0.BUILD-SNAPSHOT</version>
 
-    <name>Mixmicro+ Ingress Alibaba Sentinel Plugin Module :: ${project.version}</name>
-    <description>🏗 Mixmicro+ Ingress Alibaba Sentinel Plugin Module</description>
+    <name>Mixmicro+ Ingress Alibaba Sentinel Plugin For Spring Cloud Gateway Module :: ${project.version}</name>
+    <description>🏗 Mixmicro+ Ingress Alibaba Sentinel Plugin For Spring Cloud Gateway Module</description>
 
 
     <dependencies>
@@ -26,13 +26,7 @@
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
             <optional>true</optional>
         </dependency>
 

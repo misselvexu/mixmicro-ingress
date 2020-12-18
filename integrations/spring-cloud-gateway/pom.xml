@@ -9,12 +9,11 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>mixmicro-ingress-integration-netflix-zuul</artifactId>
+    <artifactId>mixmicro-ingress-integration-spring-cloud-gateway</artifactId>
     <version>1.2.0.BUILD-SNAPSHOT</version>
 
-    <name>Mixmicro+ Ingress Integrate Netflix Zuul Module :: ${project.version}</name>
-    <description>🏗 Mixmicro+ Ingress Netflix Zuul Module</description>
-
+    <name>Mixmicro+ Ingress Integrate Spring Cloud Gateway Module :: ${project.version}</name>
+    <description>🏗 Mixmicro+ Ingress Spring Cloud Gateway Module</description>
 
     <dependencies>
 
@@ -34,29 +33,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-zuul-adapter</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
         <dependency>
