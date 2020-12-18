@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.yunlsp.framework.ingress.integrate.websocket.v2.autoconfigure.WebSocketProxyAutoConfiguration
