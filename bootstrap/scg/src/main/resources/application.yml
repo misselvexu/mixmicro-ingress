@@ -1,0 +1,75 @@
+## spring application name
+spring:
+  application:
+    name: mixmicro-ingress-scg-server
+  cloud:
+    ## spring cloud router config properties
+    gateway:
+      enabled: true
+      discovery:
+        ## local locator config properties
+        locator:
+          enabled: true
+          lower-case-service-id: false
+      ## router instances from discovery
+      routes:
+        - id: Mixmicro-Workshop-Server
+          uri: lb://Mixmicro-Workshop-Server
+          predicates:
+            - Path=/workshop/**
+          filters:
+            - StripPrefix=1
+
+    ## sentinel config properties
+    sentinel:
+      datasource.gw-flow.file:
+        file: "classpath: gateway.json"
+        ruleType: gw-flow
+
+      ## fallback config properties
+      scg:
+        fallback:
+          mode: response
+          response-status: 502
+          response-body: 'Too Many Requests'
+
+## mixmicro plugin config properties
+mixmicro:
+  ingress:
+    scg:
+      dynamic:
+        router:
+          enabled: true
+          namespace: 25d15b43-c2cc-48eb-892b-81b2934a66b9
+          data-id: ingress-dynamic-router.json
+          data-group: DEFAULT_GROUP
+          server-addr: dev-middle.hgj.net:8848
+          file-extension: json
+
+
+## server config properties
+server:
+  port: 7777
+  http2:
+    enabled: true
+
+## gateway sentinel config
+## TODO
+
+
+## management config properties
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+## logging config properties
+logging:
+  level:
+    root: info
+    org.springframework.cloud: info
+    reactor.ipc.netty: debug

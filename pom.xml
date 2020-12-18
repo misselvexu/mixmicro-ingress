@@ -113,8 +113,9 @@
 
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
-                <artifactId>mixmicro-ingress-bootstrap</artifactId>
+                <artifactId>mixmicro-ingress-servers</artifactId>
                 <version>${project.version}</version>
+                <type>pom</type>
             </dependency>
 
             <dependency>
@@ -140,7 +141,7 @@
             <dependency>
                 <groupId>com.yunlsp.framework.components</groupId>
                 <artifactId>mixmicro-components-dependencies</artifactId>
-                <version>2020.03.RC4</version>
+                <version>1.0.7.RELEASE</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -368,13 +369,13 @@
             <dependency>
                 <groupId>io.github.openfeign</groupId>
                 <artifactId>feign-httpclient</artifactId>
-                <version>10.4.0</version>
+                <version>10.10.1</version>
             </dependency>
 
             <dependency>
                 <groupId>io.github.openfeign</groupId>
                 <artifactId>feign-okhttp</artifactId>
-                <version>10.4.0</version>
+                <version>10.10.1</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus -->

@@ -9,111 +9,17 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>mixmicro-ingress-bootstrap</artifactId>
+    <artifactId>mixmicro-ingress-servers</artifactId>
     <version>1.2.0.BUILD-SNAPSHOT</version>
 
-    <name>Mixmicro+ Ingress Bootstrap Web Module :: ${project.version}</name>
-    <description>🏗 Mixmicro+ Ingress Bootstrap Web Module</description>
+    <name>Mixmicro+ Ingress Bootstrap Servers Module :: ${project.version}</name>
+    <description>🏗 Mixmicro+ Ingress Bootstrap Servers Module</description>
+    <packaging>pom</packaging>
 
-    <dependencies>
-
-        <!-- Ingress Common Libs -->
-        <dependency>
-            <groupId>com.yunlsp.framework</groupId>
-            <artifactId>mixmicro-ingress-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.yunlsp.framework</groupId>
-            <artifactId>mixmicro-ingress-core</artifactId>
-        </dependency>
-
-        <!-- Cloud Gateway Lib -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.tomcat.embed</groupId>
-                    <artifactId>tomcat-embed-websocket</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.yunlsp.framework</groupId>
-            <artifactId>mixmicro-ingress-integration-netflix-zuul</artifactId>
-        </dependency>
-
-
-        <!-- Ingress Plugins -->
-        <dependency>
-            <groupId>com.yunlsp.framework</groupId>
-            <artifactId>mixmicro-ingress-plugin-alibaba-sentinel-zuul</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.yunlsp.framework</groupId>
-            <artifactId>mixmicro-ingress-plugin-springfox-swagger</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.yunlsp.framework</groupId>
-            <artifactId>mixmicro-ingress-plugin-whale-authenticate</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.yunlsp.framework</groupId>
-            <artifactId>mixmicro-ingress-plugin-alibaba-discovery-nacos</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.yunlsp.framework</groupId>
-            <artifactId>mixmicro-ingress-plugin-dynamic-router</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.yunlsp.framework</groupId>
-            <artifactId>mixmicro-ingress-plugin-openfeign</artifactId>
-        </dependency>
-
-        <!-- Extensions Lib -->
-        <dependency>
-            <groupId>com.yunlsp.framework.components</groupId>
-            <artifactId>mixmicro-components-starter-cors</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.yunlsp.framework.components</groupId>
-            <artifactId>mixmicro-components-starter-banner</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.yunlsp</groupId>
-            <artifactId>monitor</artifactId>
-        </dependency>
-
-
-    </dependencies>
+    <modules>
+        <module>zuul</module>
+        <module>scg</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
@@ -134,60 +40,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.4.13</version>
-                <configuration>
-                    <imageName>${project.artifactId}:${project.version}</imageName>
-                    <dockerDirectory>src/main/docker</dockerDirectory>
-                    <buildArgs>
-                        <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
-                        <PROJECT_NAME>${project.artifactId}</PROJECT_NAME>
-                    </buildArgs>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>*.zip</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <finalName>${project.artifactId}-${project.version}</finalName>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <descriptors>
-                                <descriptor>src/assembly/assembly-descriptor.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

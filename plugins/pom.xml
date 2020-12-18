@@ -19,29 +19,19 @@
     <modules>
 
         <module>alibaba-discovery-nacos</module>
-        <module>alibaba-sentinel-zuul</module>
-        <module>alibaba-sentinel-spring-cloud-gateway</module>
+        <module>alibaba-sentinel-gateway</module>
         <module>springfox-swagger</module>
         <module>whale-authenticate</module>
-        <module>dynamic-router</module>
-        <module>openfeign</module>
-
+        <module>zuul-dynamic-router</module>
+        <module>scg-dynamic-router</module>
     </modules>
-
-
 
     <dependencyManagement>
 
         <dependencies>
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
-                <artifactId>mixmicro-ingress-plugin-alibaba-sentinel-zuul</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.yunlsp.framework</groupId>
-                <artifactId>mixmicro-ingress-plugin-alibaba-sentinel-spring-cloud-gateway</artifactId>
+                <artifactId>mixmicro-ingress-plugin-alibaba-sentinel-gateway</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -65,13 +55,13 @@
 
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
-                <artifactId>mixmicro-ingress-plugin-openfeign</artifactId>
+                <artifactId>mixmicro-ingress-plugin-scg-dynamic-router</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
-                <artifactId>mixmicro-ingress-plugin-dynamic-router</artifactId>
+                <artifactId>mixmicro-ingress-plugin-zuul-dynamic-router</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

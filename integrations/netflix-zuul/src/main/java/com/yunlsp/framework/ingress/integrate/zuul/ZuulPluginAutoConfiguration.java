@@ -1,6 +1,5 @@
 package com.yunlsp.framework.ingress.integrate.zuul;
 
-import com.yunlsp.framework.ingress.core.DefaultIngressProperties;
 import com.yunlsp.framework.ingress.core.access.AccessService;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -36,11 +35,6 @@ public class ZuulPluginAutoConfiguration {
   ZuulPropertiesBeanPostProcessor zuulPropertiesBeanPostProcessor() {
     return new ZuulPropertiesBeanPostProcessor();
   }
-
-//  @Bean
-//  DefaultFallbackProvider defaultFallbackProvider() {
-//    return new DefaultFallbackProvider();
-//  }
 
   @Bean
   DefaultZuulBlockFallbackProvider defaultZuulBlockFallbackProvider() {
