@@ -1,0 +1,17 @@
+[{
+  "id": "Mixmicro-Workshop-Server",
+  "order": 0,
+  "predicates": [{
+    "args": {
+      "pattern": "/workshop/**"
+    },
+    "name": "Path"
+  }],
+  "filters": [{
+    "args": {
+      "_genkey_0": "1"
+    },
+    "name": "StripPrefix"
+  }],
+  "uri": "lb://Mixmicro-Workshop-Server"
+}]

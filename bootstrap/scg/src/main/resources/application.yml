@@ -6,45 +6,98 @@ spring:
     ## spring cloud router config properties
     gateway:
       enabled: true
+      ## loadbalancer config properties
+      loadbalancer:
+        use404: true
+
       discovery:
         ## local locator config properties
         locator:
           enabled: true
           lower-case-service-id: false
       ## router instances from discovery
-      routes:
-        - id: Mixmicro-Workshop-Server
-          uri: lb://Mixmicro-Workshop-Server
-          predicates:
-            - Path=/workshop/**
-          filters:
-            - StripPrefix=1
+      ## reference config properties file : ingress-dynamic-router.json
+#      routes:
+#        - id: Mixmicro-Workshop-Server
+#          uri: lb://Mixmicro-Workshop-Server
+#          predicates:
+#            - Path=/workshop/**
+#          filters:
+#            - StripPrefix=1
 
     ## sentinel config properties
     sentinel:
-      datasource.gw-flow.file:
-        file: "classpath: gateway.json"
-        ruleType: gw-flow
+      enabled: true
+      log:
+        switch-pid: true
+        dir: ${MIXMICRO_SERVER_HOME:/tmp/csp}
+      datasource:
+        ## 网关黑白名单
+        ingress-gw-authority:
+          nacos:
+            data-id: ingress-services-gw-authority.json
+            data-type: json
+            group-id: DEFAULT_GROUP
+            namespace: ${spring.cloud.nacos.config.namespace}
+            rule-type: authority
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+
+        ## 网关服务熔断降级配置
+        ingress-gw-degrade:
+          nacos:
+            data-id: ingress-services-gw-degrade.json
+            data-type: json
+            group-id: DEFAULT_GROUP
+            namespace: ${spring.cloud.nacos.config.namespace}
+            rule-type: degrade
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+
+        ## 网关限流
+        ingress-gw-flow:
+          nacos:
+            data-id: ingress-services-flow.json
+            data-type: json
+            group-id: DEFAULT_GROUP
+            namespace: ${spring.cloud.nacos.config.namespace}
+            rule-type: gw_flow
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+
 
       ## fallback config properties
       scg:
         fallback:
           mode: response
-          response-status: 502
-          response-body: 'Too Many Requests'
+          response-status: 503
+          response-body: 'Ingress is busy .'
+          content-type: 'text/plain'
+
 
 ## mixmicro plugin config properties
 mixmicro:
   ingress:
     scg:
+      enabled: true
+      ## dynamic router config
       dynamic:
         router:
           enabled: true
-          namespace: 25d15b43-c2cc-48eb-892b-81b2934a66b9
+          namespace: ${spring.cloud.nacos.config.namespace:25d15b43-c2cc-48eb-892b-81b2934a66b9}
           data-id: ingress-dynamic-router.json
           data-group: DEFAULT_GROUP
-          server-addr: dev-middle.hgj.net:8848
+          server-addr: ${spring.cloud.nacos.config.server-addr:dev-middle.hgj.net:8848}
           file-extension: json
+          default-timeout: 30000
+
+      ## black list config properties
+      black-list-config:
+        enabled: true
+        black-lists:
+          - enabled: true
+            request-uri: /workshop1/**
+            limit-from: '00:00:00'
+            limit-to: '23:59:59'
+            request-method: all
+
 
 
 ## server config properties
@@ -52,9 +105,6 @@ server:
   port: 7777
   http2:
     enabled: true
-
-## gateway sentinel config
-## TODO
 
 
 ## management config properties
