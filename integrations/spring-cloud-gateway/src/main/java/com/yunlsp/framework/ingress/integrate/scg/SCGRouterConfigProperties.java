@@ -40,7 +40,21 @@ public class SCGRouterConfigProperties {
 
   @NestedConfigurationProperty private NacosDataSource nacos = new NacosDataSource();
 
+  @NestedConfigurationProperty private Cors cors = new Cors();
+
   // ~~
+
+  @Getter
+  @Setter
+  public static class Cors {
+
+    public static final String SCG_CORS_PROPERTIES_PREFIX = SCG_PLUGIN_PROPERTIES_PREFIX + ".cors";
+
+    private boolean enabled = true;
+
+
+
+  }
 
   @Getter
   @Setter

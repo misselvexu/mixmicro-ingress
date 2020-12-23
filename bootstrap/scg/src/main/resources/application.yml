@@ -104,6 +104,10 @@ mixmicro:
           file-extension: yaml
           default-timeout: 30000
 
+        ## cors config properties
+        cors:
+          enabled: true
+
 
 
 ## server config properties

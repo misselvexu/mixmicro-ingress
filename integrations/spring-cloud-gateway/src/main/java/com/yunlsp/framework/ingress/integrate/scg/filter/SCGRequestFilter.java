@@ -1,8 +1,8 @@
 package com.yunlsp.framework.ingress.integrate.scg.filter;
 
 import com.yunlsp.framework.ingress.IngressConstants;
-import com.yunlsp.framework.ingress.integrate.scg.SCGRouterConfigBean;
 import com.yunlsp.framework.ingress.integrate.scg.RouteEnhanceService;
+import com.yunlsp.framework.ingress.integrate.scg.SCGRouterConfigBean;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +16,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import static com.yunlsp.framework.ingress.integrate.scg.SCGRouterConfigBeanContext.context;
+import static xyz.vopen.mixmicro.components.common.MixmicroConstants.MIXMICRO_INGRESS_INVOKE_HEADER;
 
 /**
  * {@link SCGRequestFilter}
@@ -65,16 +66,20 @@ public class SCGRequestFilter implements GlobalFilter {
       }
     }
 
+    // ~~ append token key
     byte[] token = Base64Utils.encode((IngressConstants.GATEWAY_TOKEN_VALUE).getBytes());
     String[] headerValues = {new String(token)};
-    ServerHttpRequest build =
+    ServerHttpRequest.Builder build =
         exchange
             .getRequest()
             .mutate()
-            .header(IngressConstants.GATEWAY_TOKEN_HEADER, headerValues)
-            .build();
+            .header(IngressConstants.GATEWAY_TOKEN_HEADER, headerValues);
 
-    ServerWebExchange newExchange = exchange.mutate().request(build).build();
+    // ~~ append gateway forward flag
+    build.header(MIXMICRO_INGRESS_INVOKE_HEADER, "true");
+
+
+    ServerWebExchange newExchange = exchange.mutate().request(build.build()).build();
     return chain.filter(newExchange);
   }
 }
