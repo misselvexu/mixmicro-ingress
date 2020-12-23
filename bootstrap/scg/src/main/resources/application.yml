@@ -27,7 +27,7 @@ spring:
 
     ## sentinel config properties
     sentinel:
-      enabled: true
+      enabled: false
       log:
         switch-pid: true
         dir: ${MIXMICRO_SERVER_HOME:/tmp/csp}
@@ -76,7 +76,6 @@ spring:
 mixmicro:
   ingress:
     scg:
-      enabled: true
       ## dynamic router config
       dynamic:
         router:
@@ -88,15 +87,22 @@ mixmicro:
           file-extension: json
           default-timeout: 30000
 
-      ## black list config properties
-      black-list-config:
+      ## router ext config properties
+      ext:
         enabled: true
-        black-lists:
-          - enabled: true
-            request-uri: /workshop1/**
-            limit-from: '00:00:00'
-            limit-to: '23:59:59'
-            request-method: all
+        type: nacos
+        ## local classpath config file
+        file:
+          resource: 'classpath: ingress-router-ext.yaml'
+
+        ## nacos config server config file
+        nacos:
+          namespace: ${spring.cloud.nacos.config.namespace:25d15b43-c2cc-48eb-892b-81b2934a66b9}
+          data-id: ingress-router-ext.yaml
+          data-group: DEFAULT_GROUP
+          server-addr: ${spring.cloud.nacos.config.server-addr:dev-middle.hgj.net:8848}
+          file-extension: yaml
+          default-timeout: 30000
 
 
 

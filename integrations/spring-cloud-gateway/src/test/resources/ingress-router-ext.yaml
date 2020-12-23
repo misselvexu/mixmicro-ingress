@@ -1,2 +1,15 @@
-aa:
-  aaa: 11
+## enabled flag
+enabled: true
+
+## black list config properties
+blackListConfig:
+  enabled: true
+  items:
+    - requestUri: /**/swagger-ui.html
+    - requestUri: /**/v2/api-docs
+    - requestUri: /**/actuator/**
+    - requestUri: /**/doc.html
+
+  insensitiveUrls:
+    - /**/actuator/health
+    - /**/actuator/prometheus

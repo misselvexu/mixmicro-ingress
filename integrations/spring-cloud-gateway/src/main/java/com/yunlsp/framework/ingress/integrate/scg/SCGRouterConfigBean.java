@@ -4,7 +4,6 @@ import com.yunlsp.framework.ingress.integrate.scg.config.BlackList;
 import com.yunlsp.framework.ingress.integrate.scg.config.RateLimitRule;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.representer.Representer;
 
@@ -39,15 +38,13 @@ public class SCGRouterConfigBean {
    *
    * <p>
    */
-  @NestedConfigurationProperty
-  private BlackListProperties blackListConfig = new BlackListProperties();
+  private AccessProperties blackListConfig = new AccessProperties();
 
   /**
    * Rate Limit Rule Defined .
    *
    * <p>
    */
-  @NestedConfigurationProperty
   private RateLimitRuleProperties limitRuleConfig = new RateLimitRuleProperties();
 
   // ~~
@@ -59,7 +56,7 @@ public class SCGRouterConfigBean {
 
   @Getter
   @Setter
-  public static class BlackListProperties implements Serializable {
+  public static class AccessProperties implements Serializable {
 
     private boolean enabled = true;
 
@@ -68,7 +65,14 @@ public class SCGRouterConfigBean {
      *
      * <p>
      */
-    private List<BlackList> blackLists = new ArrayList<>();
+    private List<BlackList> items = new ArrayList<>();
+
+    /**
+     * Insensitive Url(s)
+     *
+     * <p>
+     */
+    private List<String> insensitiveUrls = new ArrayList<>();
   }
 
   @Getter
@@ -89,7 +93,7 @@ public class SCGRouterConfigBean {
 
   public static SCGRouterConfigBean load(String content) {
 
-    if(reference.get() == null) {
+    if (reference.get() == null) {
       Representer representer = new Representer();
       representer.getPropertyUtils().setSkipMissingProperties(true);
 

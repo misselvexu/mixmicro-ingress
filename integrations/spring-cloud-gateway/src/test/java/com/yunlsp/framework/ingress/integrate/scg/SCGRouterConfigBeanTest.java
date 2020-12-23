@@ -1,6 +1,8 @@
 package com.yunlsp.framework.ingress.integrate.scg;
 
 import com.google.common.io.ByteStreams;
+import com.yunlsp.framework.ingress.common.IngressSerializers;
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.Assert.assertNotNull;
@@ -51,6 +54,16 @@ public class SCGRouterConfigBeanTest {
     String file = ResourceUtils.getFile(StringUtils.trimAllWhitespace("classpath: ingress-router-ext.yaml")).getAbsolutePath();
 
     System.out.println(file);
+  }
+
+  @Test
+  public void testLoad() throws Exception {
+
+    File file = ResourceUtils.getFile(StringUtils.trimAllWhitespace("classpath: ingress-router-ext.yaml"));
+    String content = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+    SCGRouterConfigBean bean = SCGRouterConfigBean.load(content);
+
+    System.out.println(IngressSerializers.to(bean));
   }
 
 }

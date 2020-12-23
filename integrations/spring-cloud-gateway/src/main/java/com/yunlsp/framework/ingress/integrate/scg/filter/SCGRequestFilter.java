@@ -51,11 +51,17 @@ public class SCGRequestFilter implements GlobalFilter {
     if (properties.isEnabled()) {
 
       if (properties.getBlackListConfig().isEnabled()) {
-        return routeEnhanceService.filterBlackList(exchange);
+        Mono<Void> result = routeEnhanceService.filterBlackList(exchange);
+        if(result != null) {
+          return result;
+        }
       }
 
       if (properties.getLimitRuleConfig().isEnabled()) {
-        return routeEnhanceService.filterRateLimit(exchange);
+        Mono<Void> result = routeEnhanceService.filterRateLimit(exchange);
+        if(result != null) {
+          return result;
+        }
       }
     }
 

@@ -68,11 +68,14 @@ public class DefaultRouteEnhanceService implements RouteEnhanceService {
         String requestMethod = request.getMethodValue();
         AtomicBoolean forbid = new AtomicBoolean(false);
 
-        Set<BlackList> blackList = Sets.newHashSet(context().getNewestConfigBean().getBlackListConfig().getBlackLists());
+        Set<BlackList> blackList = Sets.newHashSet(context().getNewestConfigBean().getBlackListConfig().getItems());
+        Set<String> insensitiveUrls = Sets.newHashSet(context().getNewestConfigBean().getBlackListConfig().getInsensitiveUrls());
 
-        doBlackListCheck(forbid, blackList, originUri, requestMethod, requestIp);
+        this.doBlackListCheck(forbid, blackList, insensitiveUrls, originUri, requestMethod, requestIp);
 
-        log.info("Blacklist verification completed - {}", stopwatch.stop());
+        if(log.isDebugEnabled()) {
+          log.debug("Blacklist verification completed - {}", stopwatch.stop());
+        }
         if (forbid.get()) {
           return makeWebFluxResponse(
               response,
@@ -81,7 +84,9 @@ public class DefaultRouteEnhanceService implements RouteEnhanceService {
               ResponseEntity.builder().code(403).message("Forbidden Explained").build());
         }
       } else {
-        log.info("Request IP not obtained, no blacklist check - {}", stopwatch.stop());
+        if(log.isDebugEnabled()) {
+          log.debug("Request IP not obtained, no blacklist check - {}", stopwatch.stop());
+        }
       }
     } catch (Exception e) {
       log.warn("Blacklist verification failed : {} - {}", e.getMessage(), stopwatch.stop());
@@ -121,13 +126,17 @@ public class DefaultRouteEnhanceService implements RouteEnhanceService {
 
         if(rule != null) {
           Mono<Void> result = doRateLimitCheck(limit, rule, originUri, requestIp, requestMethod, response);
-          log.info("Rate limit verification completed - {}", stopwatch.stop());
+          if(log.isDebugEnabled()) {
+            log.debug("Rate limit verification completed - {}", stopwatch.stop());
+          }
           if (result != null) {
             return result;
           }
         }
       } else {
-        log.info("Request IP not obtained, no rate limit filter - {}", stopwatch.stop());
+        if (log.isDebugEnabled()) {
+          log.debug("Request IP not obtained, no rate limit filter - {}", stopwatch.stop());
+        }
       }
     } catch (Exception e) {
       log.warn("Current limit failure : {} - {}", e.getMessage(), stopwatch.stop());
@@ -138,9 +147,24 @@ public class DefaultRouteEnhanceService implements RouteEnhanceService {
   private void doBlackListCheck(
       AtomicBoolean forbid,
       Set<BlackList> blackList,
+      Set<String> insensitiveUrls,
       URI uri,
       String requestMethod,
       String requestIp) {
+
+    if(insensitiveUrls != null && insensitiveUrls.size() > 0) {
+      for (String insensitiveUrl : insensitiveUrls) {
+        if (pathMatcher.match(insensitiveUrl, uri.getPath())) {
+          forbid.set(false);
+          return;
+        }
+      }
+    }
+
+    if (forbid.get()) {
+      return;
+    }
+
     for (BlackList b : blackList) {
       if (b.isEnabled()) {
 

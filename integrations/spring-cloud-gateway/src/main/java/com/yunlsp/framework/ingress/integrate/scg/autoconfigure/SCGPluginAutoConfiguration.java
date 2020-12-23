@@ -6,6 +6,7 @@ import com.yunlsp.framework.ingress.integrate.scg.SCGRouterConfigProperties;
 import com.yunlsp.framework.ingress.integrate.scg.filter.SCGRequestFilter;
 import com.yunlsp.framework.ingress.integrate.scg.listener.SCGApplicationLifecycleListener;
 import com.yunlsp.framework.ingress.integrate.scg.service.DefaultRouteEnhanceService;
+import com.yunlsp.framework.ingress.integrate.scg.service.SCGRouterExtConfigService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -53,6 +54,11 @@ public class SCGPluginAutoConfiguration {
   @Bean
   public SCGRequestFilter scgRequestFilter(RouteEnhanceService service) {
     return new SCGRequestFilter(service);
+  }
+
+  @Bean
+  public SCGRouterExtConfigService extConfigService(SCGRouterConfigProperties properties) {
+    return new SCGRouterExtConfigService(properties);
   }
 
   @Bean

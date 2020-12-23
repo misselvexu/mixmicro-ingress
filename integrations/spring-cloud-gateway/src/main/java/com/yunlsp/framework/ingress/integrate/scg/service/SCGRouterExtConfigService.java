@@ -11,9 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 
+import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static com.yunlsp.framework.ingress.integrate.scg.SCGRouterConfigBean.Type.NACOS;
 import static com.yunlsp.framework.ingress.integrate.scg.SCGRouterConfigBeanContext.context;
 
 /**
@@ -33,10 +35,10 @@ public class SCGRouterExtConfigService implements DisposableBean {
    *
    * <p>
    */
-  private final SCGRouterConfigProperties.NacosDataSource nacosDataSource;
+  private final SCGRouterConfigProperties properties;
 
-  public SCGRouterExtConfigService(SCGRouterConfigProperties.NacosDataSource nacosDataSource) {
-    this.nacosDataSource = nacosDataSource;
+  public SCGRouterExtConfigService(SCGRouterConfigProperties properties) {
+    this.properties = properties;
   }
 
   // ~~
@@ -51,6 +53,13 @@ public class SCGRouterExtConfigService implements DisposableBean {
     try{
 
       if(configServiceInitialized.compareAndSet(false, true)) {
+
+        if( !Objects.equals(NACOS, properties.getType())) {
+          log.warn("[==SCG==] supported router ext config datasource type is not nacos .");
+          return;
+        }
+
+        SCGRouterConfigProperties.NacosDataSource nacosDataSource = properties.getNacos();
 
         log.info("[==SCG==] initialize scg router ext config service ...");
 
@@ -72,7 +81,7 @@ public class SCGRouterExtConfigService implements DisposableBean {
               public void receiveConfigInfo(String configInfo) {
 
                 try{
-                  log.info("[==SCG==] <<< received router ext config content : \r\n {}", configInfo);
+                  log.info("[==SCG==] <<< received router ext config content : \r\n<<<<<<< HEAD \r\n {} \r\n--EOF-- \r\n", configInfo);
                   SCGRouterConfigBean bean = SCGRouterConfigBean.load(configInfo);
 
                   context().refresh(bean);
@@ -103,7 +112,7 @@ public class SCGRouterExtConfigService implements DisposableBean {
   // ~~ destroy
 
   @Override
-  public void destroy() throws Exception {
+  public void destroy() {
     if(configServiceInitialized.compareAndSet(true, false)) {
       if(configService != null) {
         try {
