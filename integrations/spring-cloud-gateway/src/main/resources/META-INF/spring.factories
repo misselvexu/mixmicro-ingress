@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.yunlsp.framework.ingress.integrate.scg.SCGPluginAutoConfiguration
+  com.yunlsp.framework.ingress.integrate.scg.autoconfigure.SCGPluginAutoConfiguration
