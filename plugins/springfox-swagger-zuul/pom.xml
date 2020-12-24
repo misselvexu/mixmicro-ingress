@@ -9,7 +9,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>mixmicro-ingress-plugin-springfox-swagger</artifactId>
+    <artifactId>mixmicro-ingress-plugin-springfox-swagger-zuul</artifactId>
     <version>1.2.0.BUILD-SNAPSHOT</version>
 
     <name>Mixmicro+ Ingress Swagger Plugin Module :: ${project.version}</name>

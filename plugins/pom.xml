@@ -20,7 +20,8 @@
 
         <module>alibaba-discovery-nacos</module>
         <module>alibaba-sentinel-gateway</module>
-        <module>springfox-swagger</module>
+        <module>springfox-swagger-zuul</module>
+        <module>springfox-swagger-scg</module>
         <module>whale-authenticate</module>
         <module>zuul-dynamic-router</module>
         <module>scg-dynamic-router</module>
@@ -37,7 +38,13 @@
 
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
-                <artifactId>mixmicro-ingress-plugin-springfox-swagger</artifactId>
+                <artifactId>mixmicro-ingress-plugin-springfox-swagger-zuul</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.yunlsp.framework</groupId>
+                <artifactId>mixmicro-ingress-plugin-springfox-swagger-scg</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

@@ -25,7 +25,7 @@ import reactor.core.publisher.Mono;
 public class SCGCorsFilter implements GlobalFilter, Ordered {
 
   private static final String ALL = "*";
-  private static final String MAX_AGE = "36000L";
+  private static final String MAX_AGE = "3600L";
 
   private final SCGRouterConfigProperties properties;
 
@@ -43,6 +43,11 @@ public class SCGCorsFilter implements GlobalFilter, Ordered {
    */
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+
+    if(!properties.getCors().isEnabled()) {
+      return chain.filter(exchange);
+    }
+
     ServerHttpRequest request = exchange.getRequest();
     if (!CorsUtils.isCorsRequest(request)) {
       return chain.filter(exchange);

@@ -49,6 +49,11 @@
             <artifactId>mixmicro-ingress-integration-spring-cloud-gateway</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.yunlsp.framework</groupId>
+            <artifactId>mixmicro-ingress-plugin-springfox-swagger-scg</artifactId>
+        </dependency>
+
 
         <!-- Ingress Plugins -->
         <dependency>
