@@ -56,11 +56,11 @@ spec:
   # If you are running a java project, please do not set the JVM memory to exceed the limits.memory size. Otherwise it will trigger an OOM and cause the Pod to restart indefinitely.
   resources:
     requests:
-      cpu: 1.5 #units/core
-      memory: 1536 #units/Mi
+      cpu: 1.0 #units/core
+      memory: 1024 #units/Mi
     limits:
-      cpu: 2 #units/core
-      memory: 2048 #units/Mi
+      cpu: 1 #units/core
+      memory: 1024 #units/Mi
   hpa:
     # Minimum number of pods to run, recommended minimum is 2, otherwise high availability will not be achieved. k8s will try to schedule each pod to a different node host.
     minReplicas: 2
