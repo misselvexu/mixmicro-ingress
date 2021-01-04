@@ -82,7 +82,7 @@ fi
 JAVA_OPT="${JAVA_OPT} -XX:-OmitStackTraceInFastThrow"
 JAVA_OPT="${JAVA_OPT} -XX:-UseLargePages"
 JAVA_OPT="${JAVA_OPT} -Xbootclasspath/a:./:${BASE_DIR}/config/"
-JAVA_OPT="${JAVA_OPT} -jar ${BASE_DIR}/${SERVICE_NAME}-${SERVICE_VERSION}.jar"
+JAVA_OPT="${JAVA_OPT} -jar ${BASE_DIR}/${SERVICE_NAME}.jar"
 JAVA_OPT="${JAVA_OPT} ${JAVA_OPT_EXT}"
 JAVA_OPT="${JAVA_OPT} -Dspring.config.location=${CUSTOM_SEARCH_LOCATIONS}"
 JAVA_OPT="${JAVA_OPT} -Dlogging.config=${BASE_DIR}/config/logback.xml"
@@ -102,7 +102,7 @@ fi
 echo ${JAVA} ${JAVA_OPT}
 
 if [[ "${MODE}" == "standalone" ]]; then
-    echo "Mixmicro+ Application Server is starting"
+    echo "Mixmicro+ Application Server :: ${SERVICE_VERSION} :: is starting"
     ${JAVA} ${JAVA_OPT}
 else
     if [[ ! -f "${BASE_DIR}/logs/start.log" ]]; then
@@ -111,5 +111,5 @@ else
 
     echo ${JAVA} ${JAVA_OPT} > ${BASE_DIR}/logs/start.log 2>&1 &
     nohup ${JAVA} ${JAVA_OPT} > ${BASE_DIR}/logs/start.log 2>&1 &
-    echo "Mixmicro+ Application Server is starting，you can check the ${BASE_DIR}/logs/start.log"
+    echo "Mixmicro+ Application Server :: ${SERVICE_VERSION} :: is starting，you can check the ${BASE_DIR}/logs/start.log"
 fi
