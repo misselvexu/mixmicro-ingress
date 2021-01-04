@@ -1,0 +1,12 @@
+## spring cloud discovery & config server properties
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: dev-middle.hgj.net:8848
+        namespace: 5c6451a6-181c-4838-9db0-f7f11bff47c7
+
+      config:
+        server-addr: dev-middle.hgj.net:8848
+        namespace: 5c6451a6-181c-4838-9db0-f7f11bff47c7
+        file-extension: yaml

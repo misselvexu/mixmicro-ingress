@@ -1,0 +1,68 @@
+# Kubernetes release configuration file
+# Please refer carefully to the lower release Document. If you have questions, please contact the <a href="mailto:yunwei@yunlsp.com">Operations and Maintenance group</a>
+# Execute the source code see: http://git.hgj.net/ops/kubernetes/kubernetes-yaml-script
+# Create 2020-05-28 by C.v.
+#
+# Document explain
+# For environment variables.
+# 1. ENV: runtime environment (dev, beta, uat, prod), this file should ensure that the runtime environment can be switched according to this variable. **Special attention** 2.
+# 2. SERVER_PORT: service port (default: 8090), not used if not needed.
+# 3. Custom environment variables, such as JVM_PARAM, etc. This environment variable can be passed in by Jenkins.
+#
+# About DockerFile:
+# You need to make sure the DockerFile is correct by yourself, otherwise it will lead to image build failure, container startup failure and other problems.
+# General writing principles.
+# 1. the foreground running command should be the core process to receive the stop command and exit gracefully.
+# 2. Do not run multiple services in the same container, otherwise you will not be able to maintain the lifecycle of other services.
+#
+# For the Kubernetes release process, an abbreviated process description is as follows.
+# 1. Jenkins builds the project and pulls the git code.
+# 2. execute kubernetes-yaml-script, parse the configuration file, and check for legitimacy.
+# 3. generate/parse DockerFile, docker build image:tag .
+# . 4. Generate Deployment and execute kubectl apply .
+# 5. perform Rolling Updates
+# 6. perform readiness checks, so that Deployment can determine Pod readiness and control traffic entry
+# 7. shutdown processing, send SIGTERM signal to Pod, and tolerate 30s.
+#
+# The following are examples of detailed configuration information.
+#
+# Configuration file version number
+version: 1
+
+# Metadata
+metadata:
+  # Runtime file type: java, DockerFile *Required
+  type: java
+  # Runtime file path *required
+  path: bootstrap/scg/target/mixmicro-ingress-bootstrap-scg-1.2.0.BUILD-SNAPSHOT.jar
+
+# Constraint parameters
+spec:
+  # This parameter will be resolved if the type is java, otherwise the configuration is meaningless.
+  java:
+    # jvm parameters (will be spliced in front of -jar)
+    jvmParam: >
+      -server -Xms1024M -Xmx1024M -Xmn512m -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=320m -Xss256K -XX:-OmitStackTraceInFastThrow -XX: +DisableExplicitGC
+      -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:CMSInitiatingOccupancyFraction=80 -XX:+CMSParallelRemarkEnabled -XX :SoftRefLRUPolicyMSPerMB=0
+      -XX:+CMSClassUnloadingEnabled -XX:SurvivorRatio=8 -XX:-UseParNewGC -XX:+UseCMSInitiatingOccupancyOnly -Djava.net.preferIPv4Stack= true
+      -verbose:gc -Xloggc:/${APP_NAME}/logs/${APP_NAME}_gc.log
+      -XX:HeapDumpPath=/${APP_NAME}/logs/ -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+HeapDumpOnOutOfMemoryError -XX:+ PrintGCTimeStamps
+      -XX:+PrintGCApplicationStoppedTime -XX:+PrintAdaptiveSizePolicy -Dmixmicro.server.home=${APP_NAME}
+    # jar parameters (e.g. spring parameters, will be spliced after jar)
+    jarParam: -Dserver.port=${SERVER_PORT}
+
+  # Resource limit, please set the minimum and maximum resource reasonably, the default maximum resource limit is [1 core 1G], if you have special needs, please contact <a href="mailto:yunwei@yunlsp.com">Operation and Maintenance Group</a> to apply.
+  # Please reasonably weigh the cpu and memory needed to run the project, if the limits limit is exceeded, the pod will trigger kill, resulting in the pod being actively shut down.
+  # If you are running a java project, please do not set the JVM memory to exceed the limits.memory size. Otherwise it will trigger an OOM and cause the Pod to restart indefinitely.
+  resources:
+    requests:
+      cpu: 1.5 #units/core
+      memory: 1536 #units/Mi
+    limits:
+      cpu: 2 #units/core
+      memory: 2048 #units/Mi
+  hpa:
+    # Minimum number of pods to run, recommended minimum is 2, otherwise high availability will not be achieved. k8s will try to schedule each pod to a different node host.
+    minReplicas: 2
+    # Maximum number of running pods, the default limit is 3. If you have special needs, please contact the <a href="mailto:yunwei@yunlsp.com">Operations and Maintenance group</a> to apply.
+    maxReplicas: 3

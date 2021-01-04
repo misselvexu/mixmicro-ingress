@@ -26,6 +26,7 @@ import java.util.Optional;
 @RestController
 public class SCGDocumentHandler {
 
+  @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
   @Autowired(required = false)
   private UiConfiguration uiConfiguration;
   private final SwaggerResourcesProvider swaggerResources;
