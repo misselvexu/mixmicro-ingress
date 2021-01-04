@@ -3,6 +3,7 @@ package com.yunlsp.framework.ingress.plugin.swagger.autoconfigure;
 import com.yunlsp.framework.ingress.plugin.swagger.SCGDocumentProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static com.yunlsp.framework.ingress.plugin.swagger.SCGDocumentProperties.SCG_DOCUMENT_PROPERTIES_PREFIX;
+
 /**
  * {@link SCGDocumentHandler}
  *
@@ -23,6 +26,10 @@ import java.util.Optional;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2020/12/24
  */
+@ConditionalOnProperty(
+    prefix = SCG_DOCUMENT_PROPERTIES_PREFIX,
+    value = "enabled",
+    havingValue = "true")
 @RestController
 public class SCGDocumentHandler {
 

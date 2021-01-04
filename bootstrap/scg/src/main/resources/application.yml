@@ -112,7 +112,7 @@ mixmicro:
 
     ## swagger doc config properties
     doc:
-      enabled: false
+      enabled: true
       resources: Mixmicro-Workshop-Server
 
 

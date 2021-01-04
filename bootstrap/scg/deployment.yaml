@@ -34,7 +34,7 @@ metadata:
   # Runtime file type: java, DockerFile *Required
   type: java
   # Runtime file path *required
-  path: bootstrap/scg/target/mixmicro-ingress-bootstrap-scg-1.2.0.BUILD-SNAPSHOT.jar
+  path: bootstrap/scg/target/mixmicro-ingress-bootstrap-scg.jar
 
 # Constraint parameters
 spec:

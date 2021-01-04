@@ -2,6 +2,7 @@ package com.yunlsp.framework.ingress.plugin.swagger.autoconfigure;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
 import org.springframework.cloud.gateway.support.NameUtils;
 import org.springframework.context.annotation.Primary;
@@ -11,6 +12,8 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.yunlsp.framework.ingress.plugin.swagger.SCGDocumentProperties.SCG_DOCUMENT_PROPERTIES_PREFIX;
+
 /**
  * {@link SCGDocumentResourceConfigure}
  *
@@ -19,6 +22,10 @@ import java.util.List;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2020/12/24
  */
+@ConditionalOnProperty(
+    prefix = SCG_DOCUMENT_PROPERTIES_PREFIX,
+    value = "enabled",
+    havingValue = "true")
 @Primary
 public class SCGDocumentResourceConfigure implements SwaggerResourcesProvider {
 
