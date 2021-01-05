@@ -51,7 +51,7 @@ spec:
     # jar parameters (e.g. spring parameters, will be spliced after jar)
     jarParam: -Dserver.port=${SERVER_PORT}
     # skywalking config
-    skyWalkingEnable: false
+    skyWalkingEnable: true
 
   # Resource limit, please set the minimum and maximum resource reasonably, the default maximum resource limit is [1 core 1G], if you have special needs, please contact <a href="mailto:yunwei@yunlsp.com">Operation and Maintenance Group</a> to apply.
   # Please reasonably weigh the cpu and memory needed to run the project, if the limits limit is exceeded, the pod will trigger kill, resulting in the pod being actively shut down.
