@@ -14,6 +14,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.lang.NonNull;
 import org.springframework.web.util.UriComponentsBuilder;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
@@ -35,6 +36,8 @@ public class SCGDynamicRouterService implements ApplicationEventPublisherAware {
   private ApplicationEventPublisher applicationEventPublisher;
 
   private final RouteDefinitionWriter routeDefinitionWriter;
+
+  private final Object lock = new Object();
 
   public SCGDynamicRouterService(RouteDefinitionWriter routeDefinitionWriter) {
     this.routeDefinitionWriter = routeDefinitionWriter;
@@ -63,11 +66,27 @@ public class SCGDynamicRouterService implements ApplicationEventPublisherAware {
     this.applicationEventPublisher.publishEvent(new RefreshRoutesEvent(this));
   }
 
+  @Deprecated
   public void refresh(SCGRouteDefinition sourceDefinition) {
     RouteDefinition definition = assembleRouteDefinition(sourceDefinition);
     this.routeDefinitionWriter.delete(Mono.just(definition.getId()));
     this.routeDefinitionWriter.save(Mono.just(definition)).subscribe();
     this.applicationEventPublisher.publishEvent(new RefreshRoutesEvent(this));
+  }
+
+  public void refresh(List<SCGRouteDefinition> sourceDefinitions) {
+
+    synchronized (lock) {
+      Flux.fromIterable(sourceDefinitions)
+          .subscribe(
+              sourceDefinition -> {
+                RouteDefinition definition = assembleRouteDefinition(sourceDefinition);
+                this.routeDefinitionWriter.delete(Mono.just(sourceDefinition.getId()));
+                this.routeDefinitionWriter.save(Mono.just(definition)).subscribe();
+              });
+
+      this.applicationEventPublisher.publishEvent(new RefreshRoutesEvent(this));
+    }
   }
 
   public void remove(String id) {
@@ -80,6 +99,7 @@ public class SCGDynamicRouterService implements ApplicationEventPublisherAware {
   private RouteDefinition assembleRouteDefinition(@NonNull SCGRouteDefinition sourceDefinition) {
     RouteDefinition definition = new RouteDefinition();
     List<PredicateDefinition> pdList = new ArrayList<>();
+    definition.setOrder(sourceDefinition.getOrder());
     definition.setId(sourceDefinition.getId());
     List<SCGPredicateDefinition> gatewayPredicateDefinitionList = sourceDefinition.getPredicates();
     for (SCGPredicateDefinition temp : gatewayPredicateDefinitionList) {

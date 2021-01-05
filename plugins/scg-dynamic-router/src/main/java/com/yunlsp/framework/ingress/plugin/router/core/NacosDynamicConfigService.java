@@ -71,7 +71,11 @@ public class NacosDynamicConfigService {
                     try{
                       log.info("[==SCG==] <<< received dynamic router content : \r\n {}", configInfo);
                       List<SCGRouteDefinition> definitions = mapper.readValue(configInfo, new TypeReference<List<SCGRouteDefinition>>(){});
-                      definitions.forEach(NacosDynamicConfigService.this::refresh);
+
+//                      definitions.forEach(NacosDynamicConfigService.this::refresh);
+
+                      refresh(definitions);
+
                     } catch (Exception e) {
                       log.warn("[==SCG==] process nacos server pushed config stream failed", e);
                     }
@@ -83,7 +87,9 @@ public class NacosDynamicConfigService {
         // refresh after first initialized .
         List<SCGRouteDefinition> definitions = mapper.readValue(configInfo, new TypeReference<List<SCGRouteDefinition>>(){});
 
-        definitions.forEach(this::refresh);
+//        definitions.forEach(this::refresh);
+        refresh(definitions);
+
         log.info("[==SCG==] router is refreshed ~");
 
       } catch (Exception e) {
@@ -105,7 +111,12 @@ public class NacosDynamicConfigService {
   }
 
   // ~~ refresh definitions .
+  @Deprecated
   private void refresh(@NonNull SCGRouteDefinition definition) {
     this.dynamicRouterService.refresh(definition);
+  }
+
+  private void refresh(List<SCGRouteDefinition> definitions) {
+    this.dynamicRouterService.refresh(definitions);
   }
 }
