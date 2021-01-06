@@ -1,0 +1,37 @@
+##============================================================================##
+##    Ingress Router Ext Config Template .                                    ##
+##                                                                            ##
+##    ## enabled flag                                                         ##
+##    enabled: true                                                           ##
+##                                                                            ##
+##    ## black list config properties                                         ##
+##    blackListConfig:                                                        ##
+##      enabled: true                                                         ##
+##      ## black items                                                        ##
+##      items:                                                                ##
+##        - enabled: true                                                     ##
+##          requestUri: /**/swagger-ui.html                                   ##
+##          limitFrom: '00:00:00'                                             ##
+##          limitTo: '23:59:59'                                               ##
+##          requestMethod: all                                                ##
+##                                                                            ##
+##      ## insensitive urls                                                   ##
+##      insensitiveUrls:                                                      ##
+##        - /**/actuator/health                                               ##
+##============================================================================##
+
+## enabled flag
+enabled: true
+
+## black list config properties
+blackListConfig:
+  enabled: true
+  items:
+    - requestUri: /**/swagger-ui.html
+    - requestUri: /**/v2/api-docs
+    - requestUri: /**/actuator/**
+    - requestUri: /**/doc.html
+
+  insensitiveUrls:
+    - /**/actuator/health
+    - /**/actuator/prometheus

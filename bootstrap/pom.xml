@@ -19,10 +19,13 @@
     <modules>
         <module>zuul</module>
         <module>scg</module>
+        <module>migration</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- Core Dependencies -->
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
                 <artifactId>mixmicro-ingress-plugin-all</artifactId>
@@ -37,6 +40,19 @@
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- Modules -->
+            <dependency>
+                <groupId>com.yunlsp.framework</groupId>
+                <artifactId>mixmicro-ingress-bootstrap-scg</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.yunlsp.framework</groupId>
+                <artifactId>mixmicro-ingress-bootstrap-zuul</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,0 +1,4 @@
+## prod profiles
+spring:
+  profiles:
+    include: prod-sentinel
