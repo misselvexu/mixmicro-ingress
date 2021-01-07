@@ -18,7 +18,6 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import static com.yunlsp.framework.ingress.integrate.scg.SCGRouterConfigProperties.Cors.SCG_CORS_PROPERTIES_PREFIX;
 import static com.yunlsp.framework.ingress.integrate.scg.SCGRouterConfigProperties.SCG_PLUGIN_PROPERTIES_PREFIX;
-import static com.yunlsp.framework.ingress.integrate.scg.filter.SCGCorsFilter.MAX_AGE;
 
 /**
  * {@link SCGPluginAutoConfiguration}
@@ -86,6 +85,8 @@ public class SCGPluginAutoConfiguration {
       matchIfMissing = true)
   public static class CorsConfiguration {
 
+    public static final long MAX_AGE = 3600;
+
     @Bean
     public SCGCorsFilter scgCorsFilter(SCGRouterConfigProperties properties) {
       return new SCGCorsFilter(properties);
@@ -99,7 +100,7 @@ public class SCGPluginAutoConfiguration {
       corsConfiguration.addAllowedMethod("*");
       corsConfiguration.addAllowedOrigin("*");
       corsConfiguration.setAllowCredentials(true);
-      corsConfiguration.setMaxAge(Long.parseLong(MAX_AGE));
+      corsConfiguration.setMaxAge(MAX_AGE);
       source.registerCorsConfiguration("/**", corsConfiguration);
       return new CorsWebFilter(source);
     }
