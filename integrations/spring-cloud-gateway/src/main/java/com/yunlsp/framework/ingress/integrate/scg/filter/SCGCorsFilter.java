@@ -25,7 +25,7 @@ import reactor.core.publisher.Mono;
 public class SCGCorsFilter implements GlobalFilter, Ordered {
 
   private static final String ALL = "*";
-  private static final String MAX_AGE = "3600L";
+  public static final String MAX_AGE = "3600L";
 
   private final SCGRouterConfigProperties properties;
 

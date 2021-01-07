@@ -13,9 +13,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import static com.yunlsp.framework.ingress.integrate.scg.SCGRouterConfigProperties.Cors.SCG_CORS_PROPERTIES_PREFIX;
 import static com.yunlsp.framework.ingress.integrate.scg.SCGRouterConfigProperties.SCG_PLUGIN_PROPERTIES_PREFIX;
+import static com.yunlsp.framework.ingress.integrate.scg.filter.SCGCorsFilter.MAX_AGE;
 
 /**
  * {@link SCGPluginAutoConfiguration}
@@ -87,5 +90,19 @@ public class SCGPluginAutoConfiguration {
     public SCGCorsFilter scgCorsFilter(SCGRouterConfigProperties properties) {
       return new SCGCorsFilter(properties);
     }
+
+    @Bean
+    public CorsWebFilter corsWebFilter() {
+      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+      org.springframework.web.cors.CorsConfiguration corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
+      corsConfiguration.addAllowedHeader("*");
+      corsConfiguration.addAllowedMethod("*");
+      corsConfiguration.addAllowedOrigin("*");
+      corsConfiguration.setAllowCredentials(true);
+      corsConfiguration.setMaxAge(Long.parseLong(MAX_AGE));
+      source.registerCorsConfiguration("/**", corsConfiguration);
+      return new CorsWebFilter(source);
+    }
+
   }
 }
