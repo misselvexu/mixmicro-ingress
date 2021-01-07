@@ -72,5 +72,4 @@ public class SCGDynamicRouterProperties implements Serializable {
       this.setNamespace(environment.resolvePlaceholders("${spring.cloud.nacos.config.namespace:}"));
     }
   }
-
 }

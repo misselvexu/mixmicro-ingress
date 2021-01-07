@@ -8,6 +8,12 @@ spring:
     ## spring cloud router config properties
     gateway:
       enabled: true
+
+      ## reactor netty http client timeout config
+      httpclient:
+        connect-timeout: 5000
+        response-timeout: 5s
+
       ## loadbalancer config properties
       loadbalancer:
         use404: true
@@ -26,6 +32,16 @@ spring:
 #            - Path=/workshop/**
 #          filters:
 #            - StripPrefix=1
+#            - name: Retry
+#              args:
+#                retries: 2
+#                series:
+#                  - SERVER_ERROR
+#                methods:
+#                  - GET
+#                exceptions:
+#                  - java.io.IOException
+
 
     ## sentinel config properties
     sentinel:
@@ -88,6 +104,20 @@ mixmicro:
           server-addr: ${spring.cloud.nacos.config.server-addr:dev-middle.hgj.net:8848}
           file-extension: json
           default-timeout: 30000
+
+        ## Retry config properties
+        retry:
+          enabled: true
+          definition:
+            name: Retry
+            args:
+              retries: 2
+              series:
+                - SERVER_ERROR
+              methods:
+                - GET
+              exceptions:
+                - java.io.IOException
 
       ## router ext config properties
       ext:

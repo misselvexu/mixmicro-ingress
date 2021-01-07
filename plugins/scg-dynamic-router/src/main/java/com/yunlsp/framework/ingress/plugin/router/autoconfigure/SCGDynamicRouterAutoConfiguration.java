@@ -1,5 +1,6 @@
 package com.yunlsp.framework.ingress.plugin.router.autoconfigure;
 
+import com.yunlsp.framework.ingress.plugin.router.SCGDefaultRetryProperties;
 import com.yunlsp.framework.ingress.plugin.router.SCGDynamicRouterProperties;
 import com.yunlsp.framework.ingress.plugin.router.context.SCGDynamicRouterService;
 import com.yunlsp.framework.ingress.plugin.router.context.listener.SCGLifecycleListener;
@@ -23,7 +24,7 @@ import static com.yunlsp.framework.ingress.plugin.router.SCGDynamicRouterPropert
  * @version ${project.version} - 2020/12/19
  */
 @Configuration
-@EnableConfigurationProperties(SCGDynamicRouterProperties.class)
+@EnableConfigurationProperties({SCGDynamicRouterProperties.class, SCGDefaultRetryProperties.class})
 @ConditionalOnProperty(
     prefix = SCG_DYNAMIC_PROPERTIES_PREFIX,
     value = "enabled",
@@ -33,8 +34,8 @@ public class SCGDynamicRouterAutoConfiguration {
   private static final Logger log = LoggerFactory.getLogger(SCGDynamicRouterAutoConfiguration.class);
 
   @Bean
-  public SCGDynamicRouterService dynamicRouterService(RouteDefinitionWriter routeDefinitionWriter) {
-    return new SCGDynamicRouterService(routeDefinitionWriter);
+  public SCGDynamicRouterService dynamicRouterService(SCGDefaultRetryProperties properties,RouteDefinitionWriter routeDefinitionWriter) {
+    return new SCGDynamicRouterService(properties, routeDefinitionWriter);
   }
 
   @Bean

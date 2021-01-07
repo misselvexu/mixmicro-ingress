@@ -1168,7 +1168,7 @@
     "filters": [
       {
         "args": {
-          "_genkey_0": "1"
+          "_genkey_0": "2"
         },
         "name": "StripPrefix"
       }

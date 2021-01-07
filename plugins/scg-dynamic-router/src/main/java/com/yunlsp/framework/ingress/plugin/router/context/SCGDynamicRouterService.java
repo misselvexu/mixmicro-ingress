@@ -1,5 +1,6 @@
 package com.yunlsp.framework.ingress.plugin.router.context;
 
+import com.yunlsp.framework.ingress.plugin.router.SCGDefaultRetryProperties;
 import com.yunlsp.framework.ingress.plugin.router.core.model.SCGFilterDefinition;
 import com.yunlsp.framework.ingress.plugin.router.core.model.SCGPredicateDefinition;
 import com.yunlsp.framework.ingress.plugin.router.core.model.SCGRouteDefinition;
@@ -20,6 +21,9 @@ import reactor.core.publisher.Mono;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import static com.yunlsp.framework.ingress.plugin.router.SCGDefaultRetryProperties.RETRY_FILTER_NAME;
 
 /**
  * {@link SCGDynamicRouterService}
@@ -39,8 +43,11 @@ public class SCGDynamicRouterService implements ApplicationEventPublisherAware {
 
   private final Object lock = new Object();
 
-  public SCGDynamicRouterService(RouteDefinitionWriter routeDefinitionWriter) {
+  private final SCGDefaultRetryProperties properties;
+
+  public SCGDynamicRouterService(SCGDefaultRetryProperties properties, RouteDefinitionWriter routeDefinitionWriter) {
     this.routeDefinitionWriter = routeDefinitionWriter;
+    this.properties = properties;
   }
 
   /**
@@ -113,18 +120,41 @@ public class SCGDynamicRouterService implements ApplicationEventPublisherAware {
     //设置过滤器
     List<FilterDefinition> filters = new ArrayList<>();
     List<SCGFilterDefinition> gatewayFilters = sourceDefinition.getFilters();
+
+    boolean hasRetryFilter = false;
+
     for(SCGFilterDefinition filterDefinition : gatewayFilters){
+      if(Objects.equals(RETRY_FILTER_NAME, filterDefinition.getName())) {
+        hasRetryFilter = true;
+      }
+
       FilterDefinition filter = new FilterDefinition();
       filter.setName(filterDefinition.getName());
       filter.setArgs(filterDefinition.getArgs());
       filters.add(filter);
     }
+
+    // check default retry config .
+    if(!hasRetryFilter && properties.isEnabled()) {
+      FilterDefinition filterDefinition = properties.getDefinition();
+      if(filterDefinition != null) {
+        filters.add(filterDefinition);
+      }
+    }
+
     definition.setFilters(filters);
 
     URI uri;
     if(sourceDefinition.getUri().startsWith("http")){
       uri = UriComponentsBuilder.fromHttpUrl(sourceDefinition.getUri()).build().toUri();
     }else{
+      /*
+       * URI issues , lb service name un-support underscore
+       *
+       * Reference Spring Framework Issues:  https://github.com/spring-projects/spring-framework/issues/24439
+       * Reference Spring Cloud Common Issues:  https://github.com/spring-cloud/spring-cloud-commons/issues/159
+       */
+//      uri = UriComponentsBuilder.fromUriString(sourceDefinition.getUri()).build().toUri();
       uri = URI.create(sourceDefinition.getUri());
     }
 
