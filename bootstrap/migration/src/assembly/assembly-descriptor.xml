@@ -35,7 +35,7 @@
         </fileSet>
 
         <fileSet>
-            <directory>src/main/resources</directory>
+            <directory>src/main/resources/static</directory>
             <outputDirectory>config/static</outputDirectory>
             <includes>
                 <include>**.*</include>
