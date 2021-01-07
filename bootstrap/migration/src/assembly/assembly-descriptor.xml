@@ -34,6 +34,15 @@
             <lineEnding>unix</lineEnding>
         </fileSet>
 
+        <fileSet>
+            <directory>src/main/resources</directory>
+            <outputDirectory>config/static</outputDirectory>
+            <includes>
+                <include>**.*</include>
+            </includes>
+            <lineEnding>unix</lineEnding>
+        </fileSet>
+
         <!--artifact -->
         <fileSet>
             <directory>../scg/target</directory>

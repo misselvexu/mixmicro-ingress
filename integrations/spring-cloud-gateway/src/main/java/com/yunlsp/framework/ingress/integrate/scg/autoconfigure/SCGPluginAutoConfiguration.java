@@ -91,7 +91,7 @@ public class SCGPluginAutoConfiguration {
 
     public static final long MAX_AGE = 3600;
 
-//    @Bean
+    @Bean
     public SCGCorsFilter scgCorsFilter(SCGRouterConfigProperties properties) {
       return new SCGCorsFilter(properties);
     }
