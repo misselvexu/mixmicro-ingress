@@ -52,6 +52,7 @@ public class SCGCorsFilter implements GlobalFilter, Ordered {
     if (!CorsUtils.isCorsRequest(request)) {
       return chain.filter(exchange);
     }
+
     HttpHeaders requestHeaders = request.getHeaders();
     ServerHttpResponse response = exchange.getResponse();
     HttpMethod requestMethod = requestHeaders.getAccessControlRequestMethod();

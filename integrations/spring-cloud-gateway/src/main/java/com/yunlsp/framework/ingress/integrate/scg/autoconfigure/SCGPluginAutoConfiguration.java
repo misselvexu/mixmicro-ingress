@@ -13,8 +13,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.DefaultCorsProcessor;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.server.ServerWebExchange;
+import xyz.vopen.mixmicro.kits.lang.NonNull;
 
 import static com.yunlsp.framework.ingress.integrate.scg.SCGRouterConfigProperties.Cors.SCG_CORS_PROPERTIES_PREFIX;
 import static com.yunlsp.framework.ingress.integrate.scg.SCGRouterConfigProperties.SCG_PLUGIN_PROPERTIES_PREFIX;
@@ -87,13 +91,14 @@ public class SCGPluginAutoConfiguration {
 
     public static final long MAX_AGE = 3600;
 
-    @Bean
+//    @Bean
     public SCGCorsFilter scgCorsFilter(SCGRouterConfigProperties properties) {
       return new SCGCorsFilter(properties);
     }
 
     @Bean
     public CorsWebFilter corsWebFilter() {
+
       UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
       org.springframework.web.cors.CorsConfiguration corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
       corsConfiguration.addAllowedHeader("*");
@@ -102,8 +107,21 @@ public class SCGPluginAutoConfiguration {
       corsConfiguration.setAllowCredentials(true);
       corsConfiguration.setMaxAge(MAX_AGE);
       source.registerCorsConfiguration("/**", corsConfiguration);
-      return new CorsWebFilter(source);
-    }
 
+      return new CorsWebFilter(
+          source,
+          new DefaultCorsProcessor() {
+            @Override
+            protected boolean handleInternal(
+                @NonNull ServerWebExchange exchange,
+                @NonNull org.springframework.web.cors.CorsConfiguration config,
+                boolean preFlightRequest) {
+              if (exchange.getRequest().getMethod() == HttpMethod.OPTIONS) {
+                return super.handleInternal(exchange, config, preFlightRequest);
+              }
+              return true;
+            }
+          });
+    }
   }
 }
