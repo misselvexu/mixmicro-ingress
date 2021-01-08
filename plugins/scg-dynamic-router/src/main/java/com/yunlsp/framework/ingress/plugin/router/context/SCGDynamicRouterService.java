@@ -136,10 +136,10 @@ public class SCGDynamicRouterService implements ApplicationEventPublisherAware {
 
     // check default retry config .
     if(!hasRetryFilter && properties.isEnabled()) {
-      FilterDefinition filterDefinition = properties.getDefinition();
-      if(filterDefinition != null) {
-        filters.add(filterDefinition);
-      }
+      FilterDefinition filterDefinition = new FilterDefinition();
+      filterDefinition.setName(RETRY_FILTER_NAME);
+      filterDefinition.setArgs(properties.getArgs());
+      filters.add(filterDefinition);
     }
 
     definition.setFilters(filters);

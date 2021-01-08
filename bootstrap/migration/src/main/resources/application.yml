@@ -8,7 +8,6 @@ spring:
     ## spring cloud router config properties
     gateway:
       enabled: true
-
       ## reactor netty http client timeout config
       httpclient:
         connect-timeout: 5000
@@ -18,18 +17,31 @@ spring:
       loadbalancer:
         use404: true
 
+      ## default filters config properties
+#      default-filters:
+#        - name: Retry
+#          args:
+#            retries: 2
+#            series:
+#              - SERVER_ERROR
+#            statuses:
+#              - OK
+#            methods:
+#              - GET
+
       discovery:
         ## local locator config properties
         locator:
           enabled: true
           lower-case-service-id: false
+
       ## router instances from discovery
       ## reference config properties file : ingress-dynamic-router.json
 #      routes:
-#        - id: Mixmicro-Workshop-Server
-#          uri: lb://Mixmicro-Workshop-Server
+#        - id: Mixmicro-Workshop-Server1
+#          uri: http://127.0.0.1:9887
 #          predicates:
-#            - Path=/workshop/**
+#            - Path=/ws/**
 #          filters:
 #            - StripPrefix=1
 #            - name: Retry
@@ -37,10 +49,15 @@ spring:
 #                retries: 2
 #                series:
 #                  - SERVER_ERROR
+#                statuses:
+#                  - INTERNAL_SERVER_ERROR
+#                  - BAD_GATEWAY
+#                  - SERVICE_UNAVAILABLE
 #                methods:
 #                  - GET
 #                exceptions:
 #                  - java.io.IOException
+#                  - org.springframework.cloud.gateway.support.TimeoutException
 
 
     ## sentinel config properties
@@ -108,16 +125,18 @@ mixmicro:
         ## Retry config properties
         retry:
           enabled: true
-          definition:
-            name: Retry
-            args:
-              retries: 2
-              series:
-                - SERVER_ERROR
-              methods:
-                - GET
-              exceptions:
-                - java.io.IOException
+          args:
+            retries: 3
+            series:
+              - SERVER_ERROR
+            statuses:
+              - INTERNAL_SERVER_ERROR
+              - BAD_GATEWAY
+              - SERVICE_UNAVAILABLE
+            methods:
+              - GET
+            exceptions:
+              - java.io.IOException
 
       ## router ext config properties
       ext:
@@ -139,12 +158,6 @@ mixmicro:
         ## cors config properties
         cors:
           enabled: true
-
-    ## swagger doc config properties
-    doc:
-      enabled: true
-      resources: Mixmicro-Workshop-Server
-
 
 ## server config properties
 server:

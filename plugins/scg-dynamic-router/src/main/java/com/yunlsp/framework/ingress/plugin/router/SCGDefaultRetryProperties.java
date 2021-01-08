@@ -1,18 +1,15 @@
 package com.yunlsp.framework.ingress.plugin.router;
 
+import com.google.common.annotations.Beta;
 import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
-import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.support.TimeoutException;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static com.yunlsp.framework.ingress.IngressProperties.INGRESS_PROPERTIES_PREFIX;
 import static com.yunlsp.framework.ingress.plugin.router.SCGDefaultRetryProperties.SCG_RETRY_PROPERTIES_PREFIX;
@@ -27,9 +24,6 @@ import static com.yunlsp.framework.ingress.plugin.router.SCGDefaultRetryProperti
  */
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @ConfigurationProperties(prefix = SCG_RETRY_PROPERTIES_PREFIX)
 public class SCGDefaultRetryProperties implements Serializable {
 
@@ -39,12 +33,13 @@ public class SCGDefaultRetryProperties implements Serializable {
 
   @Builder.Default private boolean enabled = false;
 
-  @NestedConfigurationProperty private FilterDefinition definition;
+  private Map<String, String> args = new LinkedHashMap<>();
 
 
   @Getter
   @Setter
   @Builder
+  @Beta
   @NoArgsConstructor
   @AllArgsConstructor
   static class DefaultRetryFilterDefinition {
