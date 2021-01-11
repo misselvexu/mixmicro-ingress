@@ -26,7 +26,7 @@ beta | [http://dev-middle.hgj.net:8848](http://dev-middle.hgj.net:8848) | `5c645
 
 > 路由配置描述
 
-```json
+```java
 
 [
   {
