@@ -4,7 +4,9 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * {@link SCGRouteDefinition}
@@ -29,6 +31,8 @@ public class SCGRouteDefinition implements Serializable {
 
   /** 路由过滤器集合配置 */
   private List<SCGFilterDefinition> filters = new ArrayList<>();
+
+  private Map<String, Object> metadata = new HashMap<>();
 
   /** 路由规则转发的目标uri */
   private String uri;

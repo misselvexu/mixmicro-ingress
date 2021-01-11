@@ -13,5 +13,9 @@
     },
     "name": "StripPrefix"
   }],
+  "metadata": {
+    "connect-timeout": 2000,
+    "response-timeout": 2000
+  },
   "uri": "lb://Mixmicro-Workshop-Server"
 }]

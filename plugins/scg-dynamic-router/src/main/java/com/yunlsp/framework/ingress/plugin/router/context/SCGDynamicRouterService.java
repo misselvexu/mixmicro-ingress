@@ -144,10 +144,13 @@ public class SCGDynamicRouterService implements ApplicationEventPublisherAware {
 
     definition.setFilters(filters);
 
+    // add service metadata (s)
+    definition.setMetadata(sourceDefinition.getMetadata());
+
     URI uri;
     if(sourceDefinition.getUri().startsWith("http")){
       uri = UriComponentsBuilder.fromHttpUrl(sourceDefinition.getUri()).build().toUri();
-    }else{
+    } else {
       /*
        * URI issues , lb service name un-support underscore
        *
