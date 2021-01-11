@@ -27,6 +27,7 @@
                 <include>*.yml</include>
                 <include>*.yaml</include>
                 <include>*.json</include>
+                <include>*.template</include>
                 <include>logback.xml</include>
                 <include>banner.txt</include>
                 <include>version.txt</include>
