@@ -25,9 +25,15 @@ spring:
 #            series:
 #              - SERVER_ERROR
 #            statuses:
-#              - OK
+#              - INTERNAL_SERVER_ERROR
+#              - BAD_GATEWAY
+#              - SERVICE_UNAVAILABLE
+#              - GATEWAY_TIMEOUT
 #            methods:
 #              - GET
+#            exceptions:
+#              - java.io.IOException
+#              - org.springframework.cloud.gateway.support.TimeoutException
 
       discovery:
         ## local locator config properties
@@ -37,38 +43,39 @@ spring:
 
       ## router instances from discovery
       ## reference config properties file : ingress-dynamic-router.json
-      routes:
-        - id: Mixmicro-Workshop-Server1
-          uri: http://127.0.0.1:9887
-          predicates:
-            - Path=/ws/**
-          metadata:
-            response-timeout: 2000
-            connect-timeout: 2000
-          filters:
-            - StripPrefix=1
-            - name: Retry
-              args:
-                retries: 2
-                series:
-                  - SERVER_ERROR
-                statuses:
-                  - INTERNAL_SERVER_ERROR
-                  - BAD_GATEWAY
-                  - SERVICE_UNAVAILABLE
-                methods:
-                  - GET
-                exceptions:
-                  - java.io.IOException
-                  - org.springframework.cloud.gateway.support.TimeoutException
+#      routes:
+#        - id: Mixmicro-Workshop-Server1
+#          uri: http://127.0.0.1:9887
+#          predicates:
+#            - Path=/ws/**
+#          metadata:
+#            response-timeout: 2000
+#            connect-timeout: 2000
+#          filters:
+#            - StripPrefix=1
+#            - name: Retry
+#              args:
+#                retries: 2
+#                series:
+#                  - SERVER_ERROR
+#                statuses:
+#                  - INTERNAL_SERVER_ERROR
+#                  - BAD_GATEWAY
+#                  - SERVICE_UNAVAILABLE
+#                  - GATEWAY_TIMEOUT
+#                methods:
+#                  - GET
+#                exceptions:
+#                  - java.io.IOException
+#                  - org.springframework.cloud.gateway.support.TimeoutException
 
 
     ## sentinel config properties
     sentinel:
-      enabled: false
+      enabled: true
       log:
         switch-pid: true
-        dir: ${MIXMICRO_SERVER_HOME:/tmp/csp}
+        dir: ${MIXMICRO_SERVER_HOME:/tmp/${spring.application.name}/csp}
       datasource:
         ## 网关黑白名单
         ingress-gw-authority:

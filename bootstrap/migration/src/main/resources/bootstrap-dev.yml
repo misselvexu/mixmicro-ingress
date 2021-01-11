@@ -5,6 +5,9 @@ spring:
       discovery:
         server-addr: dev-middle.hgj.net:8848
         namespace: 03a1c325-7c9b-41bf-b4f6-404a0cf22d5a
+        heart-beat-interval: 5
+        heart-beat-timeout: 15
+        watch-delay: 15000
 
       config:
         server-addr: dev-middle.hgj.net:8848

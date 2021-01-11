@@ -1,0 +1,38 @@
+[
+  {
+    "id": "Mixmicro-Workshop-Server",
+    "order": 0,
+    "predicates": [
+      {
+        "args": {
+          "pattern": "/workshop/**"
+        },
+        "name": "Path"
+      }
+    ],
+    "metadata": {
+      "connect-timeout": 2000,
+      "response-timeout": 4000
+    },
+    "filters": [
+      {
+        "args": {
+          "_genkey_0": "1"
+        },
+        "name": "StripPrefix"
+      },
+
+      {
+        "name": "Retry",
+        "args": {
+          "retries": "2",
+          "series": "SERVER_ERROR",
+          "methods": "GET",
+          "statuses": "INTERNAL_SERVER_ERROR, BAD_GATEWAY, SERVICE_UNAVAILABLE, GATEWAY_TIMEOUT",
+          "exceptions": "java.io.IOException, org.springframework.cloud.gateway.support.TimeoutException"
+        }
+      }
+    ],
+    "uri": "lb://Mixmicro-Workshop-Server"
+  }
+]

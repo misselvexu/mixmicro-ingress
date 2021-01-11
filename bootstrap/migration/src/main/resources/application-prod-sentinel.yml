@@ -2,6 +2,6 @@
 spring:
   cloud:
     sentinel:
+      enabled: true
       transport:
         dashboard: 72.17.16.25:4444
-      enabled: true

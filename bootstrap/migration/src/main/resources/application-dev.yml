@@ -1,0 +1,16 @@
+## mixmicro plugin config properties
+mixmicro:
+  ingress:
+    scg:
+      ## dynamic router config
+      dynamic:
+        router:
+          enabled: true
+          data-id: ingress-dynamic-router.json
+
+
+## enabled sentinel
+spring:
+  cloud:
+    sentinel:
+      enabled: true
