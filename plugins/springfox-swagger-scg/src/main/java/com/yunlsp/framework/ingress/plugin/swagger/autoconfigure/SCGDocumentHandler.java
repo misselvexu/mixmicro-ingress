@@ -1,7 +1,6 @@
 package com.yunlsp.framework.ingress.plugin.swagger.autoconfigure;
 
 import com.yunlsp.framework.ingress.plugin.swagger.SCGDocumentProperties;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
@@ -11,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import springfox.documentation.swagger.web.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.yunlsp.framework.ingress.plugin.swagger.SCGDocumentProperties.SCG_DOCUMENT_PROPERTIES_PREFIX;
 
@@ -36,14 +35,15 @@ public class SCGDocumentHandler {
   @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
   @Autowired(required = false)
   private UiConfiguration uiConfiguration;
-  private final SwaggerResourcesProvider swaggerResources;
+
+  private final SwaggerResourcesProvider swaggerResourcesProvider;
   private final SCGDocumentProperties properties;
 
-  public SCGDocumentHandler(SwaggerResourcesProvider swaggerResources, SCGDocumentProperties properties) {
-    this.swaggerResources = swaggerResources;
+  public SCGDocumentHandler(
+      SwaggerResourcesProvider swaggerResourcesProvider, SCGDocumentProperties properties) {
+    this.swaggerResourcesProvider = swaggerResourcesProvider;
     this.properties = properties;
   }
-
 
   @GetMapping("/swagger-resources/configuration/security")
   public Mono<ResponseEntity<SecurityConfiguration>> securityConfiguration() {
@@ -61,23 +61,14 @@ public class SCGDocumentHandler {
 
   @GetMapping("/swagger-resources")
   public Mono<ResponseEntity<List<SwaggerResource>>> swaggerResources() {
-    List<SwaggerResource> swaggerResources = this.swaggerResources.get();
-    List<SwaggerResource> filterList = new ArrayList<>();
-    String resources = properties.getResources();
-    String[] resourcesArray = StringUtils.splitByWholeSeparatorPreserveAllTokens(resources, ",");
-    if (resourcesArray != null && resources.length() > 0) {
-      boolean include = false;
-      for (SwaggerResource resource : swaggerResources) {
-        if (Arrays.stream(resourcesArray)
-            .anyMatch(r -> StringUtils.equalsIgnoreCase(r, resource.getName()))) {
-          include = true;
-        }
-        if (include) {
-          filterList.add(resource);
-        }
-      }
-      return Mono.just((new ResponseEntity<>(filterList, HttpStatus.OK)));
-    }
+    List<SwaggerResource> swaggerResources = this.swaggerResourcesProvider.get();
+    Set<String> resources = properties.getResources();
+    // 获取暴露doc的服务列表 过滤资源 resources实际上不会有为空的情况
+    swaggerResources =
+        swaggerResources.stream()
+            .filter(swaggerResource -> resources.contains(swaggerResource.getName()))
+            .sorted()
+            .collect(Collectors.toList());
     return Mono.just((new ResponseEntity<>(swaggerResources, HttpStatus.OK)));
   }
 }

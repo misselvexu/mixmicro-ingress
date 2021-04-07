@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import static com.yunlsp.framework.ingress.IngressProperties.INGRESS_PROPERTIES_PREFIX;
 import static com.yunlsp.framework.ingress.plugin.swagger.SCGDocumentProperties.SCG_DOCUMENT_PROPERTIES_PREFIX;
@@ -33,5 +34,5 @@ public class SCGDocumentProperties implements Serializable {
    *
    * <p>
    */
-  private String resources;
+  private Set<String> resources;
 }

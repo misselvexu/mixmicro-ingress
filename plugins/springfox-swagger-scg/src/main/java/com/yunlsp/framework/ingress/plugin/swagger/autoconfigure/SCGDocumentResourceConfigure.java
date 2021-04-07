@@ -3,9 +3,11 @@ package com.yunlsp.framework.ingress.plugin.swagger.autoconfigure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
 import org.springframework.cloud.gateway.support.NameUtils;
 import org.springframework.context.annotation.Primary;
+import reactor.core.publisher.Flux;
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
@@ -42,9 +44,10 @@ public class SCGDocumentResourceConfigure implements SwaggerResourcesProvider {
 
     List<SwaggerResource> resources = new ArrayList<>();
 
-    routeDefinitionLocator
-        .getRouteDefinitions()
-        .subscribe(
+    Flux<RouteDefinition> routeDefinitionFlux = routeDefinitionLocator.getRouteDefinitions();
+    // TODO 期待更好的方式 实现阻塞逻辑
+    routeDefinitionFlux
+        .all(
             routeDefinition -> {
               routeDefinition.getPredicates().stream()
                   .filter(
@@ -61,7 +64,6 @@ public class SCGDocumentResourceConfigure implements SwaggerResourcesProvider {
                                       .get("pattern")
                                       .replace("**", "v2/api-docs")));
                         } else {
-
                           resources.add(
                               swaggerResource(
                                   routeDefinition.getId(),
@@ -71,9 +73,11 @@ public class SCGDocumentResourceConfigure implements SwaggerResourcesProvider {
                                       .replace("**", "v2/api-docs")));
                         }
                       });
-            });
-
-    if(log.isInfoEnabled()) {
+              return true;
+            })
+        .toProcessor()
+        .block();
+    if (log.isInfoEnabled()) {
       log.info("[==SCG==] dynamic router resource size: {}", resources.size());
     }
 
