@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Primary;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 import java.util.Optional;
 
@@ -26,7 +26,7 @@ import static com.yunlsp.framework.ingress.plugin.swagger.SpringfoxSwaggerProper
  * @version ${project.version} - 2020/3/23
  */
 @Configuration
-@EnableSwagger2
+@EnableSwagger2WebMvc
 @ConditionalOnProperty(
     prefix = INGRESS_SWAGGER_PROPERTIES_PREFIX,
     value = "enabled",

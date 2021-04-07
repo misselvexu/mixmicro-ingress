@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.post.SendResponseFilter;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
-import springfox.documentation.swagger2.web.Swagger2Controller;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +26,8 @@ import java.util.zip.GZIPInputStream;
 public class SpringfoxSwaggerPathRewritingFilter extends SendResponseFilter {
 
   private final Logger log = LoggerFactory.getLogger(SpringfoxSwaggerPathRewritingFilter.class);
+
+  private static final String DEFAULT_URL = "/v2/api-docs";
 
   private ObjectMapper mapper = new ObjectMapper();
 
@@ -53,7 +54,7 @@ public class SpringfoxSwaggerPathRewritingFilter extends SendResponseFilter {
     return RequestContext.getCurrentContext()
         .getRequest()
         .getRequestURI()
-        .endsWith(Swagger2Controller.DEFAULT_URL);
+        .endsWith(DEFAULT_URL);
   }
 
   @Override
@@ -81,7 +82,7 @@ public class SpringfoxSwaggerPathRewritingFilter extends SendResponseFilter {
 
       LinkedHashMap<String, Object> map = this.mapper.readValue(response, LinkedHashMap.class);
 
-      String basePath = requestUri.replace(Swagger2Controller.DEFAULT_URL, "").replace("//", "/");
+      String basePath = requestUri.replace(DEFAULT_URL, "").replace("//", "/");
 
       // fix basePath -> /
       map.put("basePath", "/");
