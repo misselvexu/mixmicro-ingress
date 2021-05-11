@@ -1,1220 +1,1362 @@
-[
-  {
-    "id": "Mixmicro-Workshop-Server",
-    "order": 0,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/workshop/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
-    "uri": "lb://Mixmicro-Workshop-Server"
+[{
+  "id": "Mixmicro-Workshop-Server",
+  "order": 0,
+  "predicates": [{
+    "args": {
+      "pattern": "/workshop/**"
+    },
+    "name": "Path"
+  }],
+  "metadata": {
+    "connect-timeout": 2000,
+    "response-timeout": 4000
   },
+  "filters": [{
+    "args": {
+      "_genkey_0": "1"
+    },
+    "name": "StripPrefix"
+  },
+
+    {
+      "name": "Retry",
+      "args": {
+        "retries": "2",
+        "series": "SERVER_ERROR",
+        "methods": "GET",
+        "statuses": "INTERNAL_SERVER_ERROR, BAD_GATEWAY, SERVICE_UNAVAILABLE, GATEWAY_TIMEOUT",
+        "exceptions": "java.io.IOException, org.springframework.cloud.gateway.support.TimeoutException"
+      }
+    }
+  ],
+  "uri": "lb://Mixmicro-Workshop-Server"
+},
   {
     "id": "straw-server",
     "order": 1,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/straw/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/straw/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://straw-server"
   },
   {
     "id": "sms-platform",
     "order": 2,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/sms/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/sms/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://sms-platform"
   },
   {
     "id": "whale-mk-marketing-websocket",
     "order": 4,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-mk-marketing-websocket/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-mk-marketing-websocket/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb:ws://whale-mk-marketing-websocket"
   },
   {
     "id": "whale-mk-marketing",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-mk-marketing/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-mk-marketing/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-mk-marketing"
   },
   {
     "id": "whale-user-enterprise-service",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-enterprise/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-enterprise/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-user-enterprise-service"
   },
   {
     "id": "whale-contract-backstage",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-contract-backstage/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-contract-backstage/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-contract-backstage"
   },
   {
     "id": "whale-contract-center",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-contract-center/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-contract-center/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-contract-center"
   },
   {
     "id": "whale-user-account-service",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-account/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-account/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-user-account-service"
   },
   {
     "id": "whale-user-backstage-service",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-user-backstage/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-user-backstage/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-user-backstage-service"
   },
   {
     "id": "whale-nas-manager-server-1",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-nas-manager/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-nas-manager/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-nas-manager-server"
   },
   {
     "id": "whale-third-party-wechat-server",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-third-party-wechat/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-third-party-wechat/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-third-party-wechat-server"
   },
   {
     "id": "whale-third-party-recognition-server",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-third-party-recognition/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-third-party-recognition/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-third-party-recognition-server"
   },
   {
     "id": "whale-authorization-server",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-authorization-server/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-authorization-server/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-authorization-server"
   },
   {
     "id": "whale-verification-server",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-verification/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-verification/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-verification-server"
   },
   {
     "id": "unified-payment-center",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/unified-payment-center/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/unified-payment-center/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://unified-payment-center"
   },
   {
     "id": "whale-shop-coupon-server",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/shop/coupon/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/shop/coupon/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-shop-coupon-server"
   },
   {
     "id": "whale-coupon-backstage-server",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/coupon/backstage/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/coupon/backstage/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-coupon-backstage-server"
   },
   {
     "id": "lorry-module-server",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/lorry/module/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/lorry/module/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://lorry-module-server"
   },
   {
     "id": "lorry-shop-server",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/lorry/shop/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/lorry/shop/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://lorry-shop-server"
   },
   {
     "id": "sonny-thirdparty-adapter",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/truck/adapter/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/truck/adapter/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://sonny-thirdparty-adapter"
-  },
-  {
-    "id": "sonny-vehicle-location",
-    "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/truck/api/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
-    "uri": "lb://sonny-vehicle-location"
   },
   {
     "id": "sonny-vehicleee-location",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/truck/vehicleee/api/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "3"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/truck/vehicleee/api/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "3"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://sonny-vehicleee-location"
   },
   {
     "id": "sonny-vehicleee-usercenter-adapter",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/truck/vehicleee/ucadapter/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "3"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/truck/vehicleee/ucadapter/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "3"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://sonny-vehicleee-usercenter-adapter"
   },
   {
     "id": "sonny-vehicleee-shop",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/truck/vehicleee/shop/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "3"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/truck/vehicleee/shop/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "3"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://sonny-vehicleee-shop"
   },
   {
     "id": "sonny-vehicle-activity",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/truck/activity/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/truck/activity/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://sonny-vehicle-activity"
   },
   {
     "id": "sonny-vehicle-push",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/truck/push/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/truck/push/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://sonny-vehicle-push"
   },
   {
     "id": "vehicle-open-api",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/truck/openapi/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/truck/openapi/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://vehicle-open-api"
   },
   {
     "id": "sonny-customs-declare-center",
     "order": 3,
-    "predicates": [
+    "predicates": [{
+      "args": {
+        "pattern": "/declare/center/**"
+      },
+      "name": "Path"
+    }],
+    "metadata": {
+      "connect-timeout": 15000,
+      "response-timeout": 15000
+    },
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    },
       {
+        "name": "Retry",
         "args": {
-          "pattern": "/declare/center/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
+          "retries": "1",
+          "methods": "GET",
+          "statuses": "SERVICE_UNAVAILABLE",
+          "exceptions": "java.io.IOException"
+        }
       }
     ],
     "uri": "lb://sonny-customs-declare-center"
   },
   {
+    "id": "sonny-customs-declare-supplier",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/declare/supplier/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://sonny-customs-declare-supplier"
+  },
+  {
+    "id": "sonny-customs-declare-backstage",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/declare/backstage/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://sonny-customs-declare-backstage"
+  },
+  {
+    "id": "sonny-customs-declare-attachment",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/declare/attachment/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://sonny-customs-declare-attachment"
+  },
+  {
     "id": "harbour-track-nodenotify-management",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/harbour/back/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/harbour/back/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://harbour-track-nodenotify-management"
+  },
+  {
+    "id": "portArea-nodenotify-ningbo-website",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/nb/api/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://portArea-nodenotify-ningbo-website"
   },
   {
     "id": "manifest-ams-portal",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/ams/portal/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/ams/portal/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://manifest-ams-portal"
   },
   {
     "id": "manifest-ams-management",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/ams/management/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/ams/management/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://manifest-ams-management"
   },
   {
     "id": "booking-backend",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/booking/backend/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/booking/backend/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://booking-backend"
   },
   {
     "id": "booking-order",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/booking/order/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/booking/order/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://booking-order"
   },
   {
     "id": "booking-data",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/booking/data/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/booking/data/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://booking-data"
   },
   {
     "id": "booking-activity",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/booking/activity/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/booking/activity/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://booking-activity"
   },
   {
     "id": "booking-cargo",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/booking/cargo/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/booking/cargo/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://booking-cargo"
   },
   {
     "id": "hnp-aides-token",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/aides/token/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/aides/token/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://hnp-aides-token"
   },
   {
     "id": "hnp-aides-workbench",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/aides/workbench/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/aides/workbench/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://hnp-aides-workbench"
+  },
+  {
+    "id": "hnp-aides-website",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/aides/website/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://hnp-aides-website"
+  },
+  {
+    "id": "portarea-manifest-service-core",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/cangdan/service/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://portarea-manifest-service-core"
+  },
+  {
+    "id": "hnp-aides-admin",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/aides/admin/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://hnp-aides-admin"
+  },
+  {
+    "id": "portArea-manifest-qingd-website",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/qingd/website/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://portArea-manifest-qingd-website"
+  },
+  {
+    "id": "portArea-manifest-qingd-back",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/qingd/back/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://portArea-manifest-qingd-back"
   },
   {
     "id": "hnp-ship-location",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/hnp/ship/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/hnp/ship/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://hnp-ship-location"
   },
   {
     "id": "manifest-isf-portal",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/isf/portal/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/isf/portal/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://manifest-isf-portal"
   },
   {
     "id": "manifest-isf-management",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/isf/management/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/isf/management/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://manifest-isf-management"
   },
   {
     "id": "manifest-isf-edi",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/isf/edi/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/isf/edi/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://manifest-isf-edi"
   },
   {
     "id": "shop-portal",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/shop-portal/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
-    "uri": "http://10.10.10.31:8999/shop/"
+    "predicates": [{
+      "args": {
+        "pattern": "/shop-portal/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "http://172.17.0.6:8180/jfshop-portal/"
   },
   {
     "id": "whale-wallet-center",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-wallet-center/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-wallet-center/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-wallet-center"
   },
   {
     "id": "whale-merchandise-center",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-merchandise-center/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-merchandise-center/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-merchandise-center"
   },
   {
     "id": "whale-marketing-center",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/whale-marketing-center/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-marketing-center/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-marketing-center"
   },
   {
     "id": "data-user-portrayal",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/data_user_portrayal/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/data_user_portrayal/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://data-user-portrayal"
   },
   {
     "id": "sonny-vehicle-location-newshop",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/trucknew/api/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/trucknew/api/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://sonny-vehicle-location-newshop"
   },
   {
     "id": "sonny-vehicle-activity-newshop",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/trucknew/activity/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/trucknew/activity/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://sonny-vehicle-activity-newshop"
   },
   {
     "id": "sonny-vehicle-push-newshop",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/trucknew/push/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/trucknew/push/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://sonny-vehicle-push-newshop"
   },
   {
     "id": "sonny-thirdparty-adapter-newshop",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/trucknew/adapter/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/trucknew/adapter/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://sonny-thirdparty-adapter-newshop"
   },
   {
     "id": "hnp-shop-admin",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/hnp/shop-admin/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/hnp/shop-admin/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://hnp-shop-admin"
   },
   {
     "id": "hnp-shop-pc",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/hnp/shop-pc/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/hnp/shop-pc/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://hnp-shop-pc"
   },
   {
     "id": "hnp-shop-wx",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/hnp/shop-wx/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/hnp/shop-wx/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://hnp-shop-wx"
   },
   {
     "id": "hnp-vehicle-location",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/hnp/vehicle/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/hnp/vehicle/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://hnp-vehicle-location"
   },
   {
     "id": "mixmicro-okr-admin",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/oa/api/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "2"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/oa/api/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://mixmicro-okr-admin"
   },
   {
     "id": "whale-nas-manager-server-2",
     "order": 3,
-    "predicates": [
-      {
-        "args": {
-          "pattern": "/nas-manager/**"
-        },
-        "name": "Path"
-      }
-    ],
-    "filters": [
-      {
-        "args": {
-          "_genkey_0": "1"
-        },
-        "name": "StripPrefix"
-      }
-    ],
+    "predicates": [{
+      "args": {
+        "pattern": "/nas-manager/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
     "uri": "lb://whale-nas-manager-server"
+  },
+  {
+    "id": "port-openapi-aides",
+    "order": 0,
+    "predicates": [{
+      "args": {
+        "pattern": "/port/openapi/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://port-openapi-aides"
+  },
+
+  {
+    "id": "manifest-afr-token",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/afr/token/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://manifest-afr-token"
+  },
+  {
+    "id": "manifest-afr-openapi",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/afr/openapi/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://manifest-afr-openapi"
+  },
+  {
+    "id": "manifest-ams-openapi",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/ams/openapi/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://manifest-ams-openapi"
+  },
+
+
+  {
+    "id": "manifest-ams-edi",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/ams/edi/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://manifest-ams-edi"
+  },
+  {
+    "id": "manifest-isf-openapi",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/isf/openapi/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://manifest-isf-openapi"
+  },
+  {
+    "id": "hnp-admin",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/hnp/admin/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://hnp-admin"
+  },
+  {
+    "id": "portArea_user_email",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/vgm/email/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "2"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://portArea-user-email"
+  },
+  {
+    "id": "manifest-aci",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/aci/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://manifest-aci"
+  },
+
+  {
+    "id": "booking-spider",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/booking-spider/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://booking-spider"
+  },
+
+  {
+    "id": "whale-market-center",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/whale-market-center/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://whale-market-center"
+  },
+  {
+    "id": "sam",
+    "order": 3,
+    "predicates": [{
+      "args": {
+        "pattern": "/sam/**"
+      },
+      "name": "Path"
+    }],
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }],
+    "uri": "lb://sam"
   }
 ]
