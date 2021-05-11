@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.yunlsp.framework</groupId>
         <artifactId>mixmicro-ingress-all</artifactId>
-        <version>1.0.2.RC3</version>
+        <version>1.2.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>mixmicro-ingress-plugin-all</artifactId>
-    <version>1.0.2.RC3</version>
+    <version>1.2.0.RELEASE</version>
     <packaging>pom</packaging>
 
     <name>Mixmicro+ Ingress Plugins Module :: ${project.version}</name>
@@ -19,29 +19,32 @@
     <modules>
 
         <module>alibaba-discovery-nacos</module>
-        <module>alibaba-sentinel-zuul</module>
-        <module>springfox-swagger</module>
+        <module>alibaba-sentinel-gateway</module>
+        <module>springfox-swagger-zuul</module>
+        <module>springfox-swagger-scg</module>
         <module>whale-authenticate</module>
-        <module>dynamic-router</module>
-        <module>openfeign</module>
-
+        <module>zuul-dynamic-router</module>
+        <module>scg-dynamic-router</module>
     </modules>
-
-
 
     <dependencyManagement>
 
         <dependencies>
-
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
-                <artifactId>mixmicro-ingress-plugin-alibaba-sentinel-zuul</artifactId>
+                <artifactId>mixmicro-ingress-plugin-alibaba-sentinel-gateway</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
-                <artifactId>mixmicro-ingress-plugin-springfox-swagger</artifactId>
+                <artifactId>mixmicro-ingress-plugin-springfox-swagger-zuul</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.yunlsp.framework</groupId>
+                <artifactId>mixmicro-ingress-plugin-springfox-swagger-scg</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -59,13 +62,13 @@
 
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
-                <artifactId>mixmicro-ingress-plugin-openfeign</artifactId>
+                <artifactId>mixmicro-ingress-plugin-scg-dynamic-router</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.yunlsp.framework</groupId>
-                <artifactId>mixmicro-ingress-plugin-dynamic-router</artifactId>
+                <artifactId>mixmicro-ingress-plugin-zuul-dynamic-router</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

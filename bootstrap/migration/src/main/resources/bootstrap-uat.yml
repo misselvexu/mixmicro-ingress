@@ -1,0 +1,15 @@
+## spring cloud discovery & config server properties
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: uat-middle.hgj.net:8848
+        namespace: 514cfbd2-5f12-441e-a9fc-8b578e2f93c3
+        heart-beat-interval: 5
+        heart-beat-timeout: 15
+        watch-delay: 15000
+
+      config:
+        server-addr: uat-middle.hgj.net:8848
+        namespace: 514cfbd2-5f12-441e-a9fc-8b578e2f93c3
+        file-extension: yaml

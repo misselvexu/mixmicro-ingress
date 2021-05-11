@@ -1,0 +1,19 @@
+## prod profiles
+spring:
+  profiles:
+    include: prod-sentinel
+
+  ## enabled sentinel
+  cloud:
+    sentinel:
+      enabled: true
+
+## mixmicro plugin config properties
+mixmicro:
+  ingress:
+    scg:
+      ## dynamic router config
+      dynamic:
+        router:
+          enabled: true
+          data-id: ingress-dynamic-router.json

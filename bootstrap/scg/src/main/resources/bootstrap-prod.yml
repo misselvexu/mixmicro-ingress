@@ -1,0 +1,15 @@
+## spring cloud discovery & config server properties
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.hgj.net:80
+        namespace: 79ce6228-0729-4189-a2de-68e7085874ba
+        heart-beat-interval: 5
+        heart-beat-timeout: 15
+        watch-delay: 15000
+
+      config:
+        server-addr: nacos.hgj.net:80
+        namespace: 79ce6228-0729-4189-a2de-68e7085874ba
+        file-extension: yaml

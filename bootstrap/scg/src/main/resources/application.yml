@@ -1,0 +1,196 @@
+## spring application name
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: mixmicro-ingress-scg-server
+  cloud:
+    ## spring cloud router config properties
+    gateway:
+      enabled: true
+      ## reactor netty http client timeout config
+      httpclient:
+        connect-timeout: 5000
+        response-timeout: 5s
+
+      ## loadbalancer config properties
+      loadbalancer:
+        use404: true
+
+      ## default filters config properties
+#      default-filters:
+#        - name: Retry
+#          args:
+#            retries: 2
+#            series:
+#              - SERVER_ERROR
+#            statuses:
+#              - INTERNAL_SERVER_ERROR
+#              - BAD_GATEWAY
+#              - SERVICE_UNAVAILABLE
+#              - GATEWAY_TIMEOUT
+#            methods:
+#              - GET
+#            exceptions:
+#              - java.io.IOException
+#              - org.springframework.cloud.gateway.support.TimeoutException
+
+      discovery:
+        ## local locator config properties
+        locator:
+          enabled: true
+          lower-case-service-id: false
+
+      ## router instances from discovery
+      ## reference config properties file : ingress-dynamic-router.json
+#      routes:
+#        - id: Mixmicro-Workshop-Server1
+#          uri: http://127.0.0.1:9887
+#          predicates:
+#            - Path=/ws/**
+#          metadata:
+#            response-timeout: 2000
+#            connect-timeout: 2000
+#          filters:
+#            - StripPrefix=1
+#            - name: Retry
+#              args:
+#                retries: 2
+#                series:
+#                  - SERVER_ERROR
+#                statuses:
+#                  - INTERNAL_SERVER_ERROR
+#                  - BAD_GATEWAY
+#                  - SERVICE_UNAVAILABLE
+#                  - GATEWAY_TIMEOUT
+#                methods:
+#                  - GET
+#                exceptions:
+#                  - java.io.IOException
+#                  - org.springframework.cloud.gateway.support.TimeoutException
+
+
+    ## sentinel config properties
+    sentinel:
+      enabled: true
+      log:
+        switch-pid: true
+        dir: ${MIXMICRO_SERVER_HOME:/tmp/${spring.application.name}/csp}
+      datasource:
+        ## 网关黑白名单
+        ingress-gw-authority:
+          nacos:
+            data-id: ingress-services-gw-authority.json
+            data-type: json
+            group-id: DEFAULT_GROUP
+            namespace: ${spring.cloud.nacos.config.namespace}
+            rule-type: authority
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+
+        ## 网关服务熔断降级配置
+        ingress-gw-degrade:
+          nacos:
+            data-id: ingress-services-gw-degrade.json
+            data-type: json
+            group-id: DEFAULT_GROUP
+            namespace: ${spring.cloud.nacos.config.namespace}
+            rule-type: degrade
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+
+        ## 网关限流
+        ingress-gw-flow:
+          nacos:
+            data-id: ingress-services-flow.json
+            data-type: json
+            group-id: DEFAULT_GROUP
+            namespace: ${spring.cloud.nacos.config.namespace}
+            rule-type: gw_flow
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+
+
+      ## fallback config properties
+      scg:
+        fallback:
+          mode: response
+          response-status: 503
+          response-body: 'Ingress is busy .'
+          content-type: 'text/plain'
+
+
+## mixmicro plugin config properties
+mixmicro:
+  ingress:
+    scg:
+      ## dynamic router config
+      dynamic:
+        router:
+          enabled: true
+          namespace: ${spring.cloud.nacos.config.namespace:25d15b43-c2cc-48eb-892b-81b2934a66b9}
+          data-id: ingress-dynamic-router.json
+          data-group: DEFAULT_GROUP
+          server-addr: ${spring.cloud.nacos.config.server-addr:dev-middle.hgj.net:8848}
+          file-extension: json
+          default-timeout: 30000
+
+        ## Retry config properties
+        retry:
+          enabled: true
+          args:
+            retries: 2
+            series:
+              - SERVER_ERROR
+            statuses:
+              - INTERNAL_SERVER_ERROR
+              - BAD_GATEWAY
+              - SERVICE_UNAVAILABLE
+              - GATEWAY_TIMEOUT
+            methods:
+              - GET
+            exceptions:
+              - java.io.IOException
+              - org.springframework.cloud.gateway.support.TimeoutException
+
+      ## router ext config properties
+      ext:
+        enabled: true
+        type: nacos
+        ## local classpath config file
+        file:
+          resource: 'classpath: ingress-router-ext.yaml'
+
+        ## nacos config server config file
+        nacos:
+          namespace: ${spring.cloud.nacos.config.namespace:25d15b43-c2cc-48eb-892b-81b2934a66b9}
+          data-id: ingress-router-ext.yaml
+          data-group: DEFAULT_GROUP
+          server-addr: ${spring.cloud.nacos.config.server-addr:dev-middle.hgj.net:8848}
+          file-extension: yaml
+          default-timeout: 30000
+
+        ## cors config properties
+        cors:
+          enabled: true
+
+## server config properties
+server:
+  port: 7777
+  http2:
+    enabled: true
+
+
+## management config properties
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+## logging config properties
+logging:
+  level:
+    root: info
+    org.springframework.cloud: info
+    reactor.ipc.netty: debug
