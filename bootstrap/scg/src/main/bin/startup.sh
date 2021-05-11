@@ -76,7 +76,7 @@ JAVA_OPT="${JAVA_OPT} -Dspring.profiles.active=${ENV}"
 ## check skywalking config
 if [[ ! "${ENV}" == "default" ]]; then
     # enabled monitor
-    JAVA_OPT="${JAVA_OPT} -javaagent:/data/skywalking-agent/skywalking-agent.jar -Dskywalking.agent.service_name=mixmicro-ingress-bootstrap"
+    JAVA_OPT="${JAVA_OPT} -javaagent:/data/skywalking-agent/skywalking-agent.jar -Dskywalking.agent.service_name=mixmicro-ingress-server"
 fi
 
 JAVA_OPT="${JAVA_OPT} -XX:-OmitStackTraceInFastThrow"
