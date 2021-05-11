@@ -180,6 +180,9 @@ server:
 
 ## management config properties
 management:
+  metrics:
+    tags:
+      application: mixmicro-ingress-server
   endpoint:
     health:
       show-details: always
