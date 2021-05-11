@@ -35,3 +35,4 @@ blackListConfig:
   insensitiveUrls:
     - /**/actuator/health
     - /**/actuator/prometheus
+    - /**/mixmicro/info

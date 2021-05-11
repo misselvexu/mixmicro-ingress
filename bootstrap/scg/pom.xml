@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.yunlsp.framework</groupId>
         <artifactId>mixmicro-ingress-servers</artifactId>
-        <version>1.2.0.BUILD-SNAPSHOT</version>
+        <version>1.2.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>mixmicro-ingress-bootstrap-scg</artifactId>
-    <version>1.2.0.BUILD-SNAPSHOT</version>
+    <version>1.2.0.RELEASE</version>
 
     <name>Mixmicro+ Ingress Bootstrap SCG Web Module :: ${project.version}</name>
     <description>🏗 Mixmicro+ Ingress Bootstrap SCG Web Module</description>

@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.yunlsp.framework</groupId>
         <artifactId>mixmicro-ingress-integration-all</artifactId>
-        <version>1.2.0.BUILD-SNAPSHOT</version>
+        <version>1.2.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>mixmicro-ingress-integration-spring-cloud-gateway</artifactId>
-    <version>1.2.0.BUILD-SNAPSHOT</version>
+    <version>1.2.0.RELEASE</version>
 
     <name>Mixmicro+ Ingress Integrate Spring Cloud Gateway Module :: ${project.version}</name>
     <description>🏗 Mixmicro+ Ingress Spring Cloud Gateway Module</description>

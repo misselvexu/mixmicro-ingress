@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.yunlsp.framework</groupId>
         <artifactId>mixmicro-ingress-plugin-all</artifactId>
-        <version>1.2.0.BUILD-SNAPSHOT</version>
+        <version>1.2.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>mixmicro-ingress-plugin-whale-authenticate</artifactId>
-    <version>1.2.0.BUILD-SNAPSHOT</version>
+    <version>1.2.0.RELEASE</version>
 
     <name>Mixmicro+ Ingress Whale Authenticate Plugin Module :: ${project.version}</name>
     <description>🏗 Mixmicro+ Ingress Whale Authenticate Plugin Module</description>
