@@ -42,9 +42,9 @@ spec:
   java:
     # jvm parameters (will be spliced in front of -jar)
     jvmParam: >
-      -server -Xms1024M -Xmx1024M -Xmn512m -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=320m  -Xss256K  -XX:-OmitStackTraceInFastThrow -XX:+DisableExplicitGC
-      -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:CMSInitiatingOccupancyFraction=80 -XX:+CMSParallelRemarkEnabled -XX:SoftRefLRUPolicyMSPerMB=0
-      -XX:+CMSClassUnloadingEnabled -XX:SurvivorRatio=8 -XX:-UseParNewGC -XX:+UseCMSInitiatingOccupancyOnly -Djava.net.preferIPv4Stack=true
+      -server -Xms1344M -Xmx1344M -Xmn512m -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m  -Xss256K  -XX:-OmitStackTraceInFastThrow
+      -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=80 -XX:SoftRefLRUPolicyMSPerMB=0
+      -XX:+CMSClassUnloadingEnabled -XX:+UseCMSInitiatingOccupancyOnly -Djava.net.preferIPv4Stack=true -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses
       -verbose:gc  -Xloggc:/${APP_NAME}/logs/${APP_NAME}_gc.log
       -XX:HeapDumpPath=/${APP_NAME}/logs/ -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+HeapDumpOnOutOfMemoryError -XX:+PrintGCTimeStamps
       -XX:+PrintGCApplicationStoppedTime -XX:+PrintAdaptiveSizePolicy -Dmixmicro.server.home=${APP_NAME}
